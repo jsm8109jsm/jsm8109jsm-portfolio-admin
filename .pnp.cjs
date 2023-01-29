@@ -28,6 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@mui/icons-material", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.11.0"],\
             ["@next/font", "npm:13.1.6"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
@@ -42,6 +43,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
+            ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
             ["tailwindcss", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:3.2.4"],\
             ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"]\
           ],\
@@ -1177,6 +1179,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@humanwhocodes-object-schema-npm-1.2.1-eb622b5d0e-a824a1ec31.zip/node_modules/@humanwhocodes/object-schema/",\
           "packageDependencies": [\
             ["@humanwhocodes/object-schema", "npm:1.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@mui/icons-material", [\
+        ["npm:5.11.0", {\
+          "packageLocation": "./.yarn/cache/@mui-icons-material-npm-5.11.0-2a69112f17-764c1185b3.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "npm:5.11.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.11.0", {\
+          "packageLocation": "./.yarn/__virtual__/@mui-icons-material-virtual-e632dc8d40/0/cache/@mui-icons-material-npm-5.11.0-2a69112f17-764c1185b3.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.11.0"],\
+            ["@babel/runtime", "npm:7.20.13"],\
+            ["@mui/material", null],\
+            ["@types/mui__material", null],\
+            ["@types/react", "npm:18.0.27"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@mui/material",\
+            "@types/mui__material",\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4869,6 +4898,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["my-portfolio-admin", "workspace:."],\
+            ["@mui/icons-material", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.11.0"],\
             ["@next/font", "npm:13.1.6"],\
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
@@ -4883,6 +4913,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
+            ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
             ["tailwindcss", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:3.2.4"],\
             ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"]\
           ],\
@@ -5655,6 +5686,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["loose-envify", "npm:1.4.0"],\
             ["react", "npm:18.2.0"],\
             ["scheduler", "npm:0.23.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-icons", [\
+        ["npm:4.7.1", {\
+          "packageLocation": "./.yarn/cache/react-icons-npm-4.7.1-27c284b383-ed3cbdc5fc.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "npm:4.7.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-icons-virtual-1d4608f8b4/0/cache/react-icons-npm-4.7.1-27c284b383-ed3cbdc5fc.zip/node_modules/react-icons/",\
+          "packageDependencies": [\
+            ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
+            ["@types/react", "npm:18.0.27"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\

@@ -18,4 +18,4 @@ const fireStore = getFirestore(firebase);
 
 const auth = getAuth(firebase);
 
-export { fireStore, auth };
+export { fireStore, auth, firebase };
