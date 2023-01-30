@@ -4,7 +4,6 @@ import React from "react";
 
 function Sidebar() {
   const router = useRouter();
-  console.log(router);
   return (
     <div className="w-64 bg-teal h-full fixed px-2.5 py-5">
       <div className="text-white text-base">수식어</div>
