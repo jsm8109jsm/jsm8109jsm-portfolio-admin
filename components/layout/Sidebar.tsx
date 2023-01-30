@@ -7,9 +7,14 @@ function Sidebar() {
   console.log(router);
   return (
     <div className="w-64 bg-teal h-full fixed px-2.5 py-5">
-      <Link href="/">
-        <div className="w-full h-12 bg-black text-white justify-center text-4xl flex items-center rounded-10">
-          asdf
+      <div className="text-white text-base">수식어</div>
+      <Link href="/modifier">
+        <div
+          className={`w-full h-12 ${
+            router.pathname === "/modifier" ? "bg-black text-white" : "text-black"
+          } justify-center text-2xl flex items-center rounded-10 font-bold`}
+        >
+          수식어
         </div>
       </Link>
     </div>

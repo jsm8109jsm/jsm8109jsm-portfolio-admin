@@ -21,10 +21,10 @@
  @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
  @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
  
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
  @layer base {
    html > body{
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Gothic A1', sans-serif;
    }
  }
  
