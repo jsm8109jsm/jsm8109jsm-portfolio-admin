@@ -11,6 +11,8 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { Clear } from "@mui/icons-material";
+import BigTitle from "../../components/layout/BigTitle";
+import SmallTitle from "../../components/layout/SmallTitle";
 
 interface modifier {
   id: string;
@@ -64,17 +66,17 @@ function Modifier() {
   };
 
   return (
-    <div>
+    <>
       <Sidebar />
       <div className="pl-[19rem] w-full h-screen bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
-        <h1 className="font-bold text-6xl">수식어 관리</h1>
+        <BigTitle>수식어 관리</BigTitle>
         <form
           onSubmit={handleSubmit((data) => {
             console.log(data);
             addModifier(data);
           })}
         >
-          <h3 className="font-bold text-4xl">수식어 등록</h3>
+          <SmallTitle>수식어 등록</SmallTitle>
           <div className="my-4 flex items-center gap-4">
             <TextField
               id="outlined-basic"
@@ -89,7 +91,7 @@ function Modifier() {
           </div>
         </form>
         <div className="flex gap-4 flex-col">
-          <h3 className="font-bold text-4xl">수식어 삭제</h3>
+          <SmallTitle>수식어 삭제</SmallTitle>
           <div className="w-full flex gap-4">
             {modifier.map((item: modifier) => {
               return (
@@ -110,7 +112,7 @@ function Modifier() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
