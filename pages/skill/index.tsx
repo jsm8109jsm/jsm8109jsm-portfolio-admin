@@ -14,10 +14,12 @@ import { options } from "@/components/skill/CascaderOption";
 import SmallTitle from "@/components/layout/SmallTitle";
 import { Button, TextField } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
+import { Clear } from "@mui/icons-material";
 
 function Skill() {
   const [field, setField] = useState([]);
   const [comments, setComments] = useState<string[]>([]);
+  const [render, setRender] = useState(false);
 
   const { register, handleSubmit, resetField } = useForm();
   const bucket = collection(fireStore, "skill");
@@ -33,17 +35,32 @@ function Skill() {
 
   const displayRender = (labels: string[]) => labels[labels.length - 1];
 
-  const onChange = async (value: any) => {
-    try {
-      const docRef = doc(fireStore, "skill", value[0]);
-      const response = await getDoc(docRef);
-      // console.log(response.data()?.[value[1]]);
-      setField(value);
-      setComments(response.data()?.[value[1]]);
-    } catch (error) {
-      console.log(error);
-    }
+  // const onChange = async (value: any) => {
+  //   try {
+  //     const docRef = doc(fireStore, "skill", value[0]);
+  //     const response = await getDoc(docRef);
+  //     // console.log(response.data()?.[value[1]]);
+  //     setComments(response.data()?.[value[1]]);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const onChange = (value: any) => {
+    setField(value);
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const docRef = doc(fireStore, "skill", field[0]);
+        const response = await getDoc(docRef);
+        setComments(response.data()?.[field[1]]);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [field, render]);
 
   const addComment = async (data: FieldValues) => {
     try {
@@ -53,6 +70,19 @@ function Skill() {
       newComments.push(data.comment);
       const response = await updateDoc(docRef, { [field[1]]: newComments });
       resetField("comment");
+    } catch (error) {
+      setField([]);
+      console.log(error);
+    }
+  };
+
+  const deleteComment = async (index: number) => {
+    const docRef = doc(fireStore, "skill", field[0]);
+    const newComments = comments;
+    newComments.splice(index, 1);
+    const response = await updateDoc(docRef, { [field[1]]: newComments });
+    setRender((prev) => !prev);
+    try {
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +128,27 @@ function Skill() {
                   확인
                 </Button>
               </form>
+            </div>
+            <div className="flex gap-4 flex-col">
+              <SmallTitle>수식어 삭제</SmallTitle>
+              <div className="w-full flex gap-4">
+                {comments.map((item, index) => {
+                  return (
+                    <div
+                      className="bg-white p-2 rounded-full border-black border-[1px] flex items-center gap-1"
+                      key={index}
+                    >
+                      {item}
+                      <Clear
+                        className="cursor-pointer"
+                        onClick={() => {
+                          deleteComment(index);
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </>
         ) : null}
