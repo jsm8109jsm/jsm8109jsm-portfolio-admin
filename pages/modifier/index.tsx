@@ -68,7 +68,7 @@ function Modifier() {
   return (
     <>
       <Sidebar />
-      <div className="pl-[19rem] w-full h-screen bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
+      <div className="pl-[19rem] w-full min-h-screen h-full bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
         <BigTitle>수식어 관리</BigTitle>
         <form
           onSubmit={handleSubmit((data) => {
@@ -92,7 +92,7 @@ function Modifier() {
         </form>
         <div className="flex gap-4 flex-col">
           <SmallTitle>수식어 삭제</SmallTitle>
-          <div className="w-full flex gap-4">
+          <div className="w-full flex gap-4 flex-wrap">
             {modifier.map((item: modifier) => {
               return (
                 <div

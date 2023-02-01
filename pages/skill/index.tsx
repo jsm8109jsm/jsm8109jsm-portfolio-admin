@@ -66,7 +66,6 @@ function Skill() {
     try {
       const docRef = doc(fireStore, "skill", field[0]);
       const newComments = comments;
-      console.log(newComments);
       newComments.push(data.comment);
       const response = await updateDoc(docRef, { [field[1]]: newComments });
       resetField("comment");
@@ -91,7 +90,7 @@ function Skill() {
   return (
     <>
       <Sidebar />
-      <div className="pl-[19rem] w-full h-screen bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
+      <div className="pl-[19rem] w-full min-h-screen h-full bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
         <BigTitle>기술 스택 관리</BigTitle>
         <div className="flex gap-4 flex-col">
           <SmallTitle>기술 스택 선택</SmallTitle>
@@ -109,7 +108,6 @@ function Skill() {
               <form
                 className="my-4 flex items-center gap-4"
                 onSubmit={handleSubmit((data) => {
-                  console.log(data);
                   addComment(data);
                 })}
               >
@@ -131,7 +129,7 @@ function Skill() {
             </div>
             <div className="flex gap-4 flex-col">
               <SmallTitle>수식어 삭제</SmallTitle>
-              <div className="w-full flex gap-4">
+              <div className="w-full flex gap-4 flex-wrap">
                 {comments.map((item, index) => {
                   return (
                     <div
