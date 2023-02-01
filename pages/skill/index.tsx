@@ -12,9 +12,9 @@ import React, { useEffect, useState } from "react";
 import { Cascader } from "antd";
 import { options } from "@/components/skill/CascaderOption";
 import SmallTitle from "@/components/layout/SmallTitle";
-import { Button, TextField } from "@mui/material";
 import { FieldValues, useForm } from "react-hook-form";
 import { Clear } from "@mui/icons-material";
+import AddData from "@/components/layout/AddData";
 
 function Skill() {
   const [field, setField] = useState([]);
@@ -103,8 +103,8 @@ function Skill() {
         </div>
         {field.length !== 0 ? (
           <>
-            <div className="flex gap-4 flex-col">
-              <SmallTitle>기술 스택 comment 추가</SmallTitle>
+            {/* <div className="flex gap-4 flex-col">
+              <SmallTitle>기술 스택 comment 등록</SmallTitle>
               <form
                 className="my-4 flex items-center gap-4"
                 onSubmit={handleSubmit((data) => {
@@ -126,7 +126,9 @@ function Skill() {
                   확인
                 </Button>
               </form>
-            </div>
+            </div> */}
+            <AddData title="수식어" addFuc={addComment} docName="modifier" />
+
             <div className="flex gap-4 flex-col">
               <SmallTitle>수식어 삭제</SmallTitle>
               <div className="w-full flex gap-4 flex-wrap">

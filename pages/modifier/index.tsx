@@ -13,6 +13,7 @@ import {
 import { Clear } from "@mui/icons-material";
 import BigTitle from "../../components/layout/BigTitle";
 import SmallTitle from "../../components/layout/SmallTitle";
+import AddData from "../../components/layout/AddData";
 
 interface modifier {
   id: string;
@@ -70,26 +71,7 @@ function Modifier() {
       <Sidebar />
       <div className="pl-[19rem] w-full min-h-screen h-full bg-lightBeige py-12 pr-12 flex gap-16 flex-col">
         <BigTitle>수식어 관리</BigTitle>
-        <form
-          onSubmit={handleSubmit((data) => {
-            console.log(data);
-            addModifier(data);
-          })}
-        >
-          <SmallTitle>수식어 등록</SmallTitle>
-          <div className="my-4 flex items-center gap-4">
-            <TextField
-              id="outlined-basic"
-              label="수식어 등록"
-              variant="outlined"
-              {...register("modifier", { required: true })}
-              className="w-3/5"
-            />
-            <Button type="submit" variant="contained" className="bg-[#1976d2]">
-              확인
-            </Button>
-          </div>
-        </form>
+        <AddData title="수식어" addFuc={addModifier} docName="modifier" />
         <div className="flex gap-4 flex-col">
           <SmallTitle>수식어 삭제</SmallTitle>
           <div className="w-full flex gap-4 flex-wrap">
