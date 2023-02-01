@@ -14,27 +14,25 @@ function AddData({
 }) {
   const { register, handleSubmit } = useForm();
   return (
-    <>
+    <form
+      onSubmit={handleSubmit((data) => {
+        addFuc(data);
+      })}
+    >
       <SmallTitle>{`${title} 등록`}</SmallTitle>
-      <form
-        onSubmit={handleSubmit((data) => {
-          addFuc(data);
-        })}
-      >
-        <div className="my-4 flex items-center gap-4">
-          <TextField
-            id="outlined-basic"
-            label={`${title} 등록`}
-            variant="outlined"
-            {...register(docName, { required: true })}
-            className="w-3/5"
-          />
-          <Button type="submit" variant="contained" className="bg-[#1976d2]">
-            확인
-          </Button>
-        </div>
-      </form>
-    </>
+      <div className="my-4 flex items-center gap-4">
+        <TextField
+          id="outlined-basic"
+          label={`${title} 등록`}
+          variant="outlined"
+          {...register(docName, { required: true })}
+          className="w-3/5"
+        />
+        <Button type="submit" variant="contained" className="bg-[#1976d2]">
+          확인
+        </Button>
+      </div>
+    </form>
   );
 }
 
