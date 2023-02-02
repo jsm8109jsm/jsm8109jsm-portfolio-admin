@@ -12,7 +12,7 @@ import React, { useEffect, useState } from "react";
 import { Cascader } from "antd";
 import { options } from "@/components/skill/CascaderOption";
 import SmallTitle from "@/components/layout/SmallTitle";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import AddData from "@/components/layout/AddData";
 import DeleteFieldsData from "@/components/layout/DeleteFieldsData";
 
@@ -21,7 +21,6 @@ function Skill() {
   const [comments, setComments] = useState<string[]>([]);
   const [render, setRender] = useState(false);
 
-  const {  resetField } = useForm();
   const bucket = collection(fireStore, "skill");
   useEffect(() => {
     (async () => {
@@ -31,7 +30,7 @@ function Skill() {
         console.log(error);
       }
     })();
-  }, [bucket]);
+  }, []);
 
   const displayRender = (labels: string[]) => labels[labels.length - 1];
 
@@ -44,6 +43,7 @@ function Skill() {
       try {
         const docRef = doc(fireStore, "skill", field[0]);
         const response = await getDoc(docRef);
+        console.log(response);
         setComments(response.data()?.[field[1]]);
       } catch (error) {
         console.log(error);
@@ -56,8 +56,10 @@ function Skill() {
       const docRef = doc(fireStore, "skill", field[0]);
       const newComments = comments;
       newComments.push(data.comment);
+      console.log(newComments);
       const response = await updateDoc(docRef, { [field[1]]: newComments });
-      resetField("comment");
+
+      setRender((prev) => !prev);
     } catch (error) {
       setField([]);
       console.log(error);
@@ -92,7 +94,7 @@ function Skill() {
         </div>
         {field.length !== 0 ? (
           <>
-            <AddData title="수식어" addFuc={addComment} docName="modifier" />
+            <AddData title="수식어" addFuc={addComment} docName="comment" />
             <DeleteFieldsData
               title="수식어"
               deleteFunc={deleteComment}

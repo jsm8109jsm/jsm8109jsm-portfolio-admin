@@ -1,7 +1,6 @@
-import { TextField, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import { fireStore } from "../../utils/Firebase";
 import {
   collection,
@@ -21,7 +20,6 @@ export interface modifier {
 
 function Modifier() {
   const [modifier, setModifier] = useState<modifier[]>([]);
-  const { resetField } = useForm();
   const [render, setRender] = useState(false);
 
   const bucket = collection(fireStore, "modifier");
@@ -29,7 +27,6 @@ function Modifier() {
   const addModifier = async (data: FieldValues) => {
     try {
       const response = await addDoc(bucket, data);
-      resetField("modifier");
       setRender((prev) => !prev);
     } catch (error) {
       console.log(error);
@@ -40,6 +37,7 @@ function Modifier() {
     (async () => {
       try {
         const response = await getDocs(bucket);
+        console.log(response);
         const newData: modifier[] = [];
         response.docs.map((doc) => {
           newData.push({
@@ -52,7 +50,7 @@ function Modifier() {
         console.log(error);
       }
     })();
-  }, [bucket, render]);
+  }, [render]);
 
   const deleteModifier = async (id: string) => {
     const docRef = doc(fireStore, "modifier", id);

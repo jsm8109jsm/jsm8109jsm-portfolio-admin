@@ -12,11 +12,12 @@ function AddData({
   title: string;
   docName: string;
 }) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, resetField } = useForm();
   return (
     <form
       onSubmit={handleSubmit((data) => {
         addFuc(data);
+        resetField(docName);
       })}
     >
       <SmallTitle>{`${title} 등록`}</SmallTitle>
