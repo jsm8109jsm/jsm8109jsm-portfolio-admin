@@ -22,15 +22,6 @@ function Skill() {
   const [render, setRender] = useState(false);
 
   const bucket = collection(fireStore, "skill");
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getDocs(bucket);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
 
   const displayRender = (labels: string[]) => labels[labels.length - 1];
 

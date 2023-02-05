@@ -34,6 +34,20 @@ function Sidebar() {
           </div>
         </Link>
       </div>
+      <div>
+        <div className="text-white text-base">프로젝트</div>
+        <Link href="/project">
+          <div
+            className={`w-full h-12 ${
+              router.pathname === "/project"
+                ? "bg-black text-white"
+                : "text-black"
+            } justify-center text-2xl flex items-center rounded-10 font-bold`}
+          >
+            프로젝트 관리
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
