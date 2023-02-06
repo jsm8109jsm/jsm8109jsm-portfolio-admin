@@ -25,10 +25,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.42.1",
-    "react-icons": "^4.7.1"
+    "react-icons": "^4.7.1",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1"
   },
   "packageManager": "yarn@3.3.1",
   "devDependencies": {
+    "@types/react-slick": "^0",
+    "@types/slick-carousel": "^1",
     "@yarnpkg/pnpify": "^4.0.0-rc.36",
     "@yarnpkg/sdks": "^3.0.0-rc.36",
     "autoprefixer": "^10.4.13",

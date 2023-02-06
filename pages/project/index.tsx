@@ -26,7 +26,6 @@ function Project() {
       `images/${value === 0 ? "personal" : "team"}`
     );
     listAll(imageListRef).then((response) => {
-      console.log(response);
       response.items.map((item) => {
         getDownloadURL(item).then((url) => {
           setImageList((prev) => [...prev, url]);

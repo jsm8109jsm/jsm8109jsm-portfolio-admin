@@ -36,6 +36,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/react-slick", "npm:0.23.10"],\
+            ["@types/slick-carousel", "npm:1.6.37"],\
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.36"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.36"],\
             ["antd", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.1.6"],\
@@ -49,6 +51,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
             ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1"],\
             ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
+            ["react-slick", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0"],\
+            ["slick-carousel", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:1.8.1"],\
             ["tailwindcss", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:3.2.4"],\
             ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"]\
           ],\
@@ -2412,6 +2416,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/jquery", [\
+        ["npm:3.5.16", {\
+          "packageLocation": "./.yarn/cache/@types-jquery-npm-3.5.16-62a6b7d27d-13c995f15d.zip/node_modules/@types/jquery/",\
+          "packageDependencies": [\
+            ["@types/jquery", "npm:3.5.16"],\
+            ["@types/sizzle", "npm:2.3.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/json5", [\
         ["npm:0.0.29", {\
           "packageLocation": "./.yarn/cache/@types-json5-npm-0.0.29-f63a7916bd-e60b153664.zip/node_modules/@types/json5/",\
@@ -2499,6 +2513,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-slick", [\
+        ["npm:0.23.10", {\
+          "packageLocation": "./.yarn/cache/@types-react-slick-npm-0.23.10-7a4823c988-1e53fe8385.zip/node_modules/@types/react-slick/",\
+          "packageDependencies": [\
+            ["@types/react-slick", "npm:0.23.10"],\
+            ["@types/react", "npm:18.0.27"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-transition-group", [\
         ["npm:4.4.5", {\
           "packageLocation": "./.yarn/cache/@types-react-transition-group-npm-4.4.5-8f92107b07-265f1c7406.zip/node_modules/@types/react-transition-group/",\
@@ -2533,6 +2557,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.13-56212b60da-00c0724d54.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
             ["@types/semver", "npm:7.3.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/sizzle", [\
+        ["npm:2.3.3", {\
+          "packageLocation": "./.yarn/cache/@types-sizzle-npm-2.3.3-9403924950-586a9fb1f6.zip/node_modules/@types/sizzle/",\
+          "packageDependencies": [\
+            ["@types/sizzle", "npm:2.3.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/slick-carousel", [\
+        ["npm:1.6.37", {\
+          "packageLocation": "./.yarn/cache/@types-slick-carousel-npm-1.6.37-9b6da8eacb-0d2de86519.zip/node_modules/@types/slick-carousel/",\
+          "packageDependencies": [\
+            ["@types/slick-carousel", "npm:1.6.37"],\
+            ["@types/jquery", "npm:3.5.16"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3985,6 +4028,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["enhanced-resolve", "npm:5.12.0"],\
             ["graceful-fs", "npm:4.2.10"],\
             ["tapable", "npm:2.2.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["enquire.js", [\
+        ["npm:2.1.6", {\
+          "packageLocation": "./.yarn/cache/enquire.js-npm-2.1.6-fc4ea2e583-bb094054ee.zip/node_modules/enquire.js/",\
+          "packageDependencies": [\
+            ["enquire.js", "npm:2.1.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5790,6 +5842,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["lodash.debounce", [\
+        ["npm:4.0.8", {\
+          "packageLocation": "./.yarn/cache/lodash.debounce-npm-4.0.8-f1d6e09799-a3f527d22c.zip/node_modules/lodash.debounce/",\
+          "packageDependencies": [\
+            ["lodash.debounce", "npm:4.0.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["lodash.merge", [\
         ["npm:4.6.2", {\
           "packageLocation": "./.yarn/cache/lodash.merge-npm-4.6.2-77cb4416bf-ad580b4bdb.zip/node_modules/lodash.merge/",\
@@ -6059,6 +6120,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.11.18"],\
             ["@types/react", "npm:18.0.27"],\
             ["@types/react-dom", "npm:18.0.10"],\
+            ["@types/react-slick", "npm:0.23.10"],\
+            ["@types/slick-carousel", "npm:1.6.37"],\
             ["@yarnpkg/pnpify", "npm:4.0.0-rc.36"],\
             ["@yarnpkg/sdks", "npm:3.0.0-rc.36"],\
             ["antd", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.1.6"],\
@@ -6072,6 +6135,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
             ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1"],\
             ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
+            ["react-slick", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0"],\
+            ["slick-carousel", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:1.8.1"],\
             ["tailwindcss", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:3.2.4"],\
             ["typescript", "patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"]\
           ],\
@@ -8048,6 +8113,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-slick", [\
+        ["npm:0.29.0", {\
+          "packageLocation": "./.yarn/cache/react-slick-npm-0.29.0-28db290b04-67ce498191.zip/node_modules/react-slick/",\
+          "packageDependencies": [\
+            ["react-slick", "npm:0.29.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-slick-virtual-4e5c582bf5/0/cache/react-slick-npm-0.29.0-28db290b04-67ce498191.zip/node_modules/react-slick/",\
+          "packageDependencies": [\
+            ["react-slick", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0"],\
+            ["@types/react", "npm:18.0.27"],\
+            ["@types/react-dom", "npm:18.0.10"],\
+            ["classnames", "npm:2.3.2"],\
+            ["enquire.js", "npm:2.1.6"],\
+            ["json2mq", "npm:0.2.0"],\
+            ["lodash.debounce", "npm:4.0.8"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
+            ["resize-observer-polyfill", "npm:1.5.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-transition-group", [\
         ["npm:4.4.5", {\
           "packageLocation": "./.yarn/cache/react-transition-group-npm-4.4.5-98ea4ef96e-7560284010.zip/node_modules/react-transition-group/",\
@@ -8392,6 +8488,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/slash-npm-4.0.0-ce4bbc4a80-da8e4af737.zip/node_modules/slash/",\
           "packageDependencies": [\
             ["slash", "npm:4.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["slick-carousel", [\
+        ["npm:1.8.1", {\
+          "packageLocation": "./.yarn/cache/slick-carousel-npm-1.8.1-8382d373c2-acaad391e4.zip/node_modules/slick-carousel/",\
+          "packageDependencies": [\
+            ["slick-carousel", "npm:1.8.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:1.8.1", {\
+          "packageLocation": "./.yarn/__virtual__/slick-carousel-virtual-3348e235cd/0/cache/slick-carousel-npm-1.8.1-8382d373c2-acaad391e4.zip/node_modules/slick-carousel/",\
+          "packageDependencies": [\
+            ["slick-carousel", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:1.8.1"],\
+            ["@types/jquery", null],\
+            ["jquery", null]\
+          ],\
+          "packagePeers": [\
+            "@types/jquery",\
+            "jquery"\
           ],\
           "linkType": "HARD"\
         }]\
