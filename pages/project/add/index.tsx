@@ -120,7 +120,7 @@ function Add() {
             }}
           />
         </Button>
-        <Slider {...settings} className='w-48'>
+        <Slider {...settings} className="w-48">
           {imageList.map((el, index) => {
             return (
               <div className="relative w-48" key={index}>
