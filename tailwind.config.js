@@ -15,7 +15,8 @@ module.exports = {
         orange: "#FC6B3F",
       },
       borderRadius: {
-        10: "10px"
+        10: "10px",
+        20: "20px"
       },
       fontFamily:{
         title: ["'Black Han Sans'", "sans-serif"]

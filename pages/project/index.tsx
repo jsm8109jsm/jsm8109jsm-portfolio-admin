@@ -5,13 +5,20 @@ import { Tabs, Tab, Button } from "@mui/material";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import Image from "next/image";
 
-import { storage } from "@/utils/Firebase";
+import { fireStore, storage } from "@/utils/Firebase";
+import { collection, getDocs } from "firebase/firestore";
+import ProjectItem from "@/components/project/ProjectItem";
+
+export interface Personal_Projects {
+  [key: string]: any;
+}
 
 function Project() {
   const [value, setValue] = useState(0);
   const [render, setRender] = useState(false);
   // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageList, setImageList] = useState<string[]>([]);
+  const [projects, setProjects] = useState<Personal_Projects[]>([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log(newValue);
@@ -34,6 +41,41 @@ function Project() {
     });
   }, [value, render]);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const bucket = collection(
+          fireStore,
+          `${value === 0 ? "personal" : "team"}_projects`
+        );
+        const response = await getDocs(bucket);
+        let newData: Personal_Projects[] = [];
+        response.docs.map((doc) => {
+          newData.push(doc.data());
+        });
+
+         const imageListRef = ref(
+          storage,
+          `images/${value === 0 ? "personal" : "team"}`
+        );
+        listAll(imageListRef).then((response) => {
+          response.items.map((item) => {
+            getDownloadURL(item).then((url) => {
+              newData = newData.map((data) => {
+                return data.imageName === item.name.slice(0, -4)
+                  ? { ...data, url: url }
+                  : data;
+              });
+              setProjects(newData);
+            });
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [value]);
+
   return (
     <>
       <Sidebar />
@@ -43,45 +85,11 @@ function Project() {
           <Tab label="개인 프로젝트" className="bg-white" />
           <Tab label="팀 프로젝트" className="bg-white" />
         </Tabs>
-        <Button variant="contained" component="label" className="w-24">
-          Upload
-          <input
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              if (event.target.files) {
-                const imageUpload = event.target.files[0];
-                if (imageUpload === null) return;
-
-                const imageRef = ref(
-                  storage,
-                  `images/${value === 0 ? "personal" : "team"}/${
-                    imageUpload.name
-                  }`
-                );
-                uploadBytes(imageRef, imageUpload).then((snapshot) => {
-                  getDownloadURL(snapshot.ref).then((url) => {
-                    setImageList((prev) => [...prev, url]);
-                  });
-                });
-                setRender((prev) => !prev);
-              }
-            }}
-          />
-        </Button>
-        {imageList.map((el, index) => {
-          return (
-            <Image
-              key={index}
-              src={el}
-              alt="프로젝트 사진"
-              width={100}
-              height={100}
-            />
-          );
+      <div className="grid grid-cols-3 gap-5">
+        {projects.map((item, index) => {
+          return <ProjectItem key={index} data={item}></ProjectItem>;
         })}
+      </div>
       </div>
     </>
   );

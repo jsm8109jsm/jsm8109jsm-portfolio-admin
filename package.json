@@ -17,7 +17,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
-    "antd": "^5.1.6",
+    "antd": "^5.2.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.6",
     "firebase": "^9.16.0",
@@ -27,6 +27,7 @@
     "react-hook-form": "^7.42.1",
     "react-icons": "^4.7.1",
     "react-slick": "^0.29.0",
+    "recoil": "^0.7.6",
     "slick-carousel": "^1.8.1"
   },
   "packageManager": "yarn@3.3.1",
