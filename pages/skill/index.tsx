@@ -58,12 +58,12 @@ function Skill() {
   };
 
   const deleteComment = async (id: number) => {
-    const docRef = doc(fireStore, "skill", field[0]);
-    const newComments = comments;
-    newComments.splice(id, 1);
-    const response = await updateDoc(docRef, { [field[1]]: newComments });
-    setRender((prev) => !prev);
     try {
+      const docRef = doc(fireStore, "skill", field[0]);
+      const newComments = comments;
+      newComments.splice(id, 1);
+      const response = await updateDoc(docRef, { [field[1]]: newComments });
+      setRender((prev) => !prev);
     } catch (error) {
       console.log(error);
     }

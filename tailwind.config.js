@@ -16,7 +16,8 @@ module.exports = {
       },
       borderRadius: {
         10: "10px",
-        20: "20px"
+        20: "20px",
+        30: "30px"
       },
       fontFamily:{
         title: ["'Black Han Sans'", "sans-serif"]

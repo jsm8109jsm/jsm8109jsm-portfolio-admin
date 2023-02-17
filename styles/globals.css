@@ -1,30 +1,36 @@
-
 /**
  * This injects Tailwind's base styles and any base styles registered by
  * plugins.
  */
- @tailwind base;
- /**
+@tailwind base;
+/**
   * This injects Tailwind's component classes and any component classes
   * registered by plugins.
   */
- @tailwind components;
- 
- /**
+@tailwind components;
+
+/**
   * This injects Tailwind's utility classes and any utility classes registered
   * by plugins.
   */
- @tailwind utilities;
+@tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Lemon&display=swap");
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap");
 
- @import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
- @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
- @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
- 
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
- @layer base {
-   html > body{
-    font-family: 'Gothic A1', sans-serif;
-   }
- }
- 
+@import url("https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap");
+@layer base {
+  html > body {
+    font-family: "Gothic A1", sans-serif;
+  }
+}
+
+.slick-list {
+  height: 100% !important;
+  overflow: hidden;
+}
+
+.slick-arrow {
+  color: black;
+}
