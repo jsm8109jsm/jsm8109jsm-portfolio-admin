@@ -34,3 +34,9 @@
 .slick-arrow {
   color: black;
 }
+
+@layer components {
+  .item-title {
+    @apply text-[1.25rem] flex gap-2.5 font-normal m-0 mb-2.5 items-center;
+  }
+}

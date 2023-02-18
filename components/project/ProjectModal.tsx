@@ -6,11 +6,19 @@ import { ref } from "firebase/storage";
 import { listAll } from "firebase/storage";
 import { storage } from "@/utils/Firebase";
 import { getDownloadURL } from "firebase/storage";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { VscGithub } from "react-icons/vsc";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  Mood,
+  MoodBad,
+} from "@mui/icons-material";
 import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 
 function ProjectModal() {
   const [modal, setModal] = useRecoilState(modalState);
@@ -84,7 +92,53 @@ function ProjectModal() {
           ) : (
             <Skeleton variant="rectangular" width={360} height={225.3} />
           )}
-          <div className="flex flex-col gap-5 w-full"></div>
+          <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
+              <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">{data.intro}</h3>
+              <div>
+                <h4 className="item-title">
+                  <Layers />
+                  사용한 기술 스택
+                </h4>
+                <div className="flex flex-wrap gap-2.5 w-full">
+                  {data.stacks &&
+                    data.stacks.map((stack: string, index: number) => (
+                      <div
+                        key={index}
+                        className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-black"
+                      >
+                        {stack}
+                      </div>
+                    ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="item-title">
+                  <Mood />
+                  느낀 점
+                </h4>
+                {data.feel}
+              </div>
+              <div>
+                <h4 className="item-title">
+                  <MoodBad />
+                  힘들었던 점
+                </h4>
+                {data.hard}
+              </div>
+            </div>
+            <a
+              href={data.github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="visited:text-white no-underline"
+            >
+              <button className="hover:bg-black/[0.85] bg-black p-2.5 cursor-pointer duration-300 rounded-10 border-none text-white flex gap-2.5 items-center">
+                <span>자세히 보기</span>
+                <VscGithub size={20}/>
+              </button>
+            </a>
+          </div>
         </div>
       </div>
     </Modal>
