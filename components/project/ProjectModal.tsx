@@ -18,11 +18,34 @@ import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from "next/link";
+import UpdateProjects from "./buttons/UpdateProjects";
+
+interface NewData {
+  name: string;
+  start_date: string;
+  end_date: string;
+  intro: string;
+  github_link: string;
+  stacks: string[];
+  imageName: string;
+  feel: string;
+  hard: string;
+}
 
 function ProjectModal() {
   const [modal, setModal] = useRecoilState(modalState);
   const [imageIndex, setImageIndex] = useState(1);
+  const [newData, setNewData] = useState<NewData>({
+    name: "",
+    start_date: "",
+    end_date: "",
+    intro: "",
+    github_link: "",
+    stacks: [],
+    imageName: "",
+    feel: "",
+    hard: "",
+  });
 
   const [imageList, setImageList] = useState<string[]>([]);
 
@@ -71,7 +94,16 @@ function ProjectModal() {
       open={isOpen}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
-        <h1 className="text-5xl text-center m-0 font-black">{data.name}</h1>
+        <h1 className="text-5xl text-center m-0 font-black">
+          {data.name}
+          <UpdateProjects
+            name="name"
+            newData={newData.name}
+            id={data.projectId}
+            index={value}
+            size={60}
+          />
+        </h1>
         <h6 className="text-[#808080] m-0 text-center text-2xl">{`(${data.start_month} ~ ${data.finish_month})`}</h6>
         <div className="flex gap-10 w-full mt-5">
           {imageList.length > 0 ? (
@@ -94,7 +126,9 @@ function ProjectModal() {
           )}
           <div className="flex flex-col gap-5 w-full">
             <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
-              <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">{data.intro}</h3>
+              <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
+                {data.intro}
+              </h3>
               <div>
                 <h4 className="item-title">
                   <Layers />
@@ -105,7 +139,7 @@ function ProjectModal() {
                     data.stacks.map((stack: string, index: number) => (
                       <div
                         key={index}
-                        className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-black"
+                        className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-[#000]"
                       >
                         {stack}
                       </div>
@@ -135,7 +169,7 @@ function ProjectModal() {
             >
               <button className="hover:bg-black/[0.85] bg-black p-2.5 cursor-pointer duration-300 rounded-10 border-none text-white flex gap-2.5 items-center">
                 <span>자세히 보기</span>
-                <VscGithub size={20}/>
+                <VscGithub size={20} />
               </button>
             </a>
           </div>

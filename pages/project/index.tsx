@@ -50,11 +50,13 @@ function Project() {
         );
         const response = await getDocs(bucket);
         let newData: Personal_Projects[] = [];
+        console.log(response);
+
         response.docs.map((doc) => {
-          newData.push(doc.data());
+          newData.push({ ...doc.data(), projectId: doc.id });
         });
 
-         const imageListRef = ref(
+        const imageListRef = ref(
           storage,
           `images/${value === 0 ? "personal" : "team"}`
         );
@@ -76,6 +78,8 @@ function Project() {
     })();
   }, [value]);
 
+  console.log(projects);
+
   return (
     <>
       <Sidebar />
@@ -85,11 +89,11 @@ function Project() {
           <Tab label="개인 프로젝트" className="bg-white" />
           <Tab label="팀 프로젝트" className="bg-white" />
         </Tabs>
-      <div className="grid grid-cols-3 gap-5">
-        {projects.map((item, index) => {
-          return <ProjectItem key={index} data={item}></ProjectItem>;
-        })}
-      </div>
+        <div className="grid grid-cols-3 gap-5">
+          {projects.map((item) => {
+            return <ProjectItem key={item.id} data={item}></ProjectItem>;
+          })}
+        </div>
       </div>
     </>
   );
