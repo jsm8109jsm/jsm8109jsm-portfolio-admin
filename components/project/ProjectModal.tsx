@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Skeleton } from "@mui/material";
+import { Modal, Skeleton, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { modalState } from "@/store/modal";
 import { ref } from "firebase/storage";
@@ -19,6 +19,10 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import UpdateProjects from "./buttons/UpdateProjects";
+import UpdateProjectCancel from "./buttons/UpdateProjectCancel";
+import { updatingDataState } from "@/store/updatingModal";
+import UpdateProjectConfirm from "./buttons/UpdateProjectConfirm";
+import { renderState } from "@/store/render";
 
 interface NewData {
   name: string;
@@ -46,8 +50,11 @@ function ProjectModal() {
     feel: "",
     hard: "",
   });
+  const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
 
   const [imageList, setImageList] = useState<string[]>([]);
+
+  const [render, setRender] = useRecoilState(renderState);
 
   const { data, isOpen, value } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
@@ -94,16 +101,32 @@ function ProjectModal() {
       open={isOpen}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
-        <h1 className="text-5xl text-center m-0 font-black">
-          {data.name}
-          <UpdateProjects
-            name="name"
-            newData={newData.name}
-            id={data.projectId}
-            index={value}
-            size={60}
-          />
-        </h1>
+        {!updatingData.name ? (
+          <>
+            <h1 className="text-5xl text-center m-0 font-black">
+              {data.name}
+              <UpdateProjects name="name" size={60} />
+            </h1>
+          </>
+        ) : (
+          <div className="flex justify-center gap-2.5 items-center">
+            <TextField
+              label={data.name}
+              value={newData.name}
+              variant="outlined"
+              onChange={(e) =>
+                setNewData((prev) => ({ ...prev, name: e.target.value }))
+              }
+            />
+            <UpdateProjectConfirm
+              name="name"
+              newData={newData.name}
+              id={data.projectId}
+              index={value}
+            />
+            <UpdateProjectCancel name="name" />
+          </div>
+        )}
         <h6 className="text-[#808080] m-0 text-center text-2xl">{`(${data.start_month} ~ ${data.finish_month})`}</h6>
         <div className="flex gap-10 w-full mt-5">
           {imageList.length > 0 ? (

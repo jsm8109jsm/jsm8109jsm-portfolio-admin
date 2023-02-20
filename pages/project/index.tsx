@@ -8,6 +8,8 @@ import Image from "next/image";
 import { fireStore, storage } from "@/utils/Firebase";
 import { collection, getDocs } from "firebase/firestore";
 import ProjectItem from "@/components/project/ProjectItem";
+import { renderState } from "@/store/render";
+import { useRecoilState } from "recoil";
 
 export interface Personal_Projects {
   [key: string]: any;
@@ -15,7 +17,7 @@ export interface Personal_Projects {
 
 function Project() {
   const [value, setValue] = useState(0);
-  const [render, setRender] = useState(false);
+  const [render, setRender] = useRecoilState(renderState);
   // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageList, setImageList] = useState<string[]>([]);
   const [projects, setProjects] = useState<Personal_Projects[]>([]);
@@ -50,7 +52,6 @@ function Project() {
         );
         const response = await getDocs(bucket);
         let newData: Personal_Projects[] = [];
-        console.log(response);
 
         response.docs.map((doc) => {
           newData.push({ ...doc.data(), projectId: doc.id });
@@ -76,9 +77,7 @@ function Project() {
         console.log(error);
       }
     })();
-  }, [value]);
-
-  console.log(projects);
+  }, [value, render]);
 
   return (
     <>
