@@ -11,8 +11,8 @@ export const modalState = atom<{
     isOpen: false,
     data: {
       name: "",
-      start_date: "",
-      end_date: "",
+      start_month: "",
+      finish_month: "",
       intro: "",
       github_link: "",
       stacks: [],

@@ -3,8 +3,8 @@ import { atom } from "recoil";
 
 interface UpdatingData {
   name: boolean;
-  start_date: boolean;
-  end_date: boolean;
+  start_month: boolean;
+  finish_month: boolean;
   intro: boolean;
   github_link: boolean;
   stacks: boolean;
@@ -17,8 +17,8 @@ export const updatingDataState = atom<UpdatingData>({
   key: "updaringData",
   default: {
     name: false,
-    start_date: false,
-    end_date: false,
+    start_month: false,
+    finish_month: false,
     intro: false,
     github_link: false,
     stacks: false,

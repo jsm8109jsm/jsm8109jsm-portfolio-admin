@@ -18,16 +18,14 @@ import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import UpdateProjects from "./buttons/UpdateProjects";
-import UpdateProjectCancel from "./buttons/UpdateProjectCancel";
 import { updatingDataState } from "@/store/updatingModal";
-import UpdateProjectConfirm from "./buttons/UpdateProjectConfirm";
-import { renderState } from "@/store/render";
+import { newDataState } from "@/store/newData";
+import ModalItem from "./modalLayout/ModalItem";
 
 interface NewData {
   name: string;
-  start_date: string;
-  end_date: string;
+  start_month: string;
+  finish_month: string;
   intro: string;
   github_link: string;
   stacks: string[];
@@ -39,22 +37,10 @@ interface NewData {
 function ProjectModal() {
   const [modal, setModal] = useRecoilState(modalState);
   const [imageIndex, setImageIndex] = useState(1);
-  const [newData, setNewData] = useState<NewData>({
-    name: "",
-    start_date: "",
-    end_date: "",
-    intro: "",
-    github_link: "",
-    stacks: [],
-    imageName: "",
-    feel: "",
-    hard: "",
-  });
+  const [newData, setNewData] = useRecoilState(newDataState);
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
 
   const [imageList, setImageList] = useState<string[]>([]);
-
-  const [render, setRender] = useRecoilState(renderState);
 
   const { data, isOpen, value } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
@@ -101,33 +87,13 @@ function ProjectModal() {
       open={isOpen}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
-        {!updatingData.name ? (
-          <>
-            <h1 className="text-5xl text-center m-0 font-black">
-              {data.name}
-              <UpdateProjects name="name" size={60} />
-            </h1>
-          </>
-        ) : (
-          <div className="flex justify-center gap-2.5 items-center">
-            <TextField
-              label={data.name}
-              value={newData.name}
-              variant="outlined"
-              onChange={(e) =>
-                setNewData((prev) => ({ ...prev, name: e.target.value }))
-              }
-            />
-            <UpdateProjectConfirm
-              name="name"
-              newData={newData.name}
-              id={data.projectId}
-              index={value}
-            />
-            <UpdateProjectCancel name="name" />
-          </div>
-        )}
-        <h6 className="text-[#808080] m-0 text-center text-2xl">{`(${data.start_month} ~ ${data.finish_month})`}</h6>
+        <h1 className="text-5xl text-center m-0 font-black">
+          <ModalItem name="name" index={value} size="large" />
+        </h1>
+        <h6 className="text-[#808080] m-0 text-center text-2xl">
+          <ModalItem name="start_month" index={value} size="small" /> ~{" "}
+          <ModalItem name="finish_month" index={value} size="small" />
+        </h6>
         <div className="flex gap-10 w-full mt-5">
           {imageList.length > 0 ? (
             <div className="w-[22.5rem]">
@@ -150,7 +116,7 @@ function ProjectModal() {
           <div className="flex flex-col gap-5 w-full">
             <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
               <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
-                {data.intro}
+                <ModalItem name="intro" index={value} size="small" />
               </h3>
               <div>
                 <h4 className="item-title">
@@ -174,14 +140,14 @@ function ProjectModal() {
                   <Mood />
                   느낀 점
                 </h4>
-                {data.feel}
+                <ModalItem name="feel" index={value} size="small" />
               </div>
               <div>
                 <h4 className="item-title">
                   <MoodBad />
                   힘들었던 점
                 </h4>
-                {data.hard}
+                <ModalItem name="hard" index={value} size="small" />
               </div>
             </div>
             <a
