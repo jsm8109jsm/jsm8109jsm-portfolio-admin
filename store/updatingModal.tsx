@@ -14,7 +14,7 @@ interface UpdatingData {
 }
 
 export const updatingDataState = atom<UpdatingData>({
-  key: "updaringData",
+  key: "updatingData",
   default: {
     name: false,
     start_month: false,

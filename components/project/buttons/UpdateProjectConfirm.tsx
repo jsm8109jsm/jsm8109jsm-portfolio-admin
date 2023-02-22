@@ -1,3 +1,4 @@
+import { modalState } from "@/store/modal";
 import { renderState } from "@/store/render";
 import { updatingDataState } from "@/store/updatingModal";
 import { fireStore } from "@/utils/Firebase";
@@ -9,23 +10,24 @@ import { useRecoilState } from "recoil";
 function UpdatingProjectConfirm({
   name,
   newData,
-  id,
   index,
 }: {
   name: string;
   newData: string;
-  id: string;
   index: number;
 }) {
   const [render, setRender] = useRecoilState(renderState);
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
+  const [modal, setModal] = useRecoilState(modalState);
+
+  const { data } = modal;
 
   const updateProject = async () => {
     try {
       const projectRef = doc(
         fireStore,
         `${index === 0 ? "personal" : "team"}_projects`,
-        id
+        data.projectId
       );
       const response = await updateDoc(projectRef, { [name]: newData });
       setRender((prev) => !prev);
@@ -34,12 +36,38 @@ function UpdatingProjectConfirm({
       console.log(error);
     }
   };
+
+  const updateArrayProject = async () => {
+    try {
+      const projectRef = doc(
+        fireStore,
+        `${index === 0 ? "personal" : "team"}_projects`,
+        data.projectId
+      );
+      let stacks = data.stacks;
+      console.log(stacks);
+
+      const response = await updateDoc(projectRef, {
+        stacks: [...stacks, newData],
+      });
+      console.log(response);
+      setUpdatingData((prev) => ({ ...prev, stacks: false }));
+      setRender((prev) => !prev);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const isUpdatingArray = () => {
+    name !== "stacks" ? updateProject() : updateArrayProject();
+  };
+
   return (
     <Button
       variant="contained"
       color="success"
       className="bg-[#2e7d32]"
-      onClick={() => updateProject()}
+      onClick={() => isUpdatingArray()}
     >
       확인
     </Button>

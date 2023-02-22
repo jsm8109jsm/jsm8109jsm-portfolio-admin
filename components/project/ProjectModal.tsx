@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { modalState } from "@/store/modal";
 import { ref } from "firebase/storage";
 import { listAll } from "firebase/storage";
-import { storage } from "@/utils/Firebase";
+import { fireStore, storage } from "@/utils/Firebase";
 import { getDownloadURL } from "firebase/storage";
 import { VscGithub } from "react-icons/vsc";
 import {
@@ -21,26 +21,21 @@ import "slick-carousel/slick/slick-theme.css";
 import { updatingDataState } from "@/store/updatingModal";
 import { newDataState } from "@/store/newData";
 import ModalItem from "./modalLayout/ModalItem";
-
-interface NewData {
-  name: string;
-  start_month: string;
-  finish_month: string;
-  intro: string;
-  github_link: string;
-  stacks: string[];
-  imageName: string;
-  feel: string;
-  hard: string;
-}
+import { doc, updateDoc } from "firebase/firestore";
+import { Clear, Add } from "@mui/icons-material";
+import { renderState } from "@/store/render";
+import UpdateProjectConfirm from "./buttons/UpdateProjectConfirm";
+import UpdateProjectCancel from "./buttons/UpdateProjectCancel";
 
 function ProjectModal() {
   const [modal, setModal] = useRecoilState(modalState);
   const [imageIndex, setImageIndex] = useState(1);
-  const [newData, setNewData] = useRecoilState(newDataState);
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
+  const [render, setRender] = useRecoilState(renderState);
 
   const [imageList, setImageList] = useState<string[]>([]);
+  const [newData, setNewData] = useRecoilState(newDataState);
+  const [newStack, setNewStack] = useState("");
 
   const { data, isOpen, value } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
@@ -80,6 +75,26 @@ function ProjectModal() {
       }
     })();
   }, [data.imageName, value]);
+
+  const deleteStacks = async (index: number) => {
+    try {
+      const projectRef = doc(
+        fireStore,
+        `${value === 0 ? "personal" : "team"}_projects`,
+        data.projectId
+      );
+      const stacks = data.stacks.filter(
+        (stack: string, i: number) => i !== index
+      );
+
+      const response = await updateDoc(projectRef, { stacks: stacks });
+      console.log(response);
+      setUpdatingData((prev) => ({ ...prev, stacks: false }));
+      setRender((prev) => !prev);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Modal
@@ -123,7 +138,7 @@ function ProjectModal() {
                   <Layers />
                   사용한 기술 스택
                 </h4>
-                <div className="flex flex-wrap gap-2.5 w-full">
+                <div className="flex flex-wrap gap-2.5 w-full items-center">
                   {data.stacks &&
                     data.stacks.map((stack: string, index: number) => (
                       <div
@@ -131,8 +146,37 @@ function ProjectModal() {
                         className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-[#000]"
                       >
                         {stack}
+                        <Clear
+                          className="cursor-pointer"
+                          onClick={() => deleteStacks(index)}
+                        />
                       </div>
                     ))}
+                  {!updatingData.stacks ? (
+                    <>
+                      <Add
+                        className="cursor-pointer"
+                        onClick={() =>
+                          setUpdatingData((prev) => ({ ...prev, stacks: true }))
+                        }
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <TextField
+                        label="stacks"
+                        value={newStack}
+                        variant="outlined"
+                        onChange={(e) => setNewStack(e.target.value)}
+                      />
+                      <UpdateProjectConfirm
+                        name="stacks"
+                        newData={newStack}
+                        index={value}
+                      />
+                      <UpdateProjectCancel name="stacks" />
+                    </>
+                  )}
                 </div>
               </div>
               <div>
@@ -150,17 +194,7 @@ function ProjectModal() {
                 <ModalItem name="hard" index={value} size="small" />
               </div>
             </div>
-            <a
-              href={data.github_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="visited:text-white no-underline"
-            >
-              <button className="hover:bg-black/[0.85] bg-black p-2.5 cursor-pointer duration-300 rounded-10 border-none text-white flex gap-2.5 items-center">
-                <span>자세히 보기</span>
-                <VscGithub size={20} />
-              </button>
-            </a>
+            <ModalItem name="github_link" index={value} size="small" />
           </div>
         </div>
       </div>

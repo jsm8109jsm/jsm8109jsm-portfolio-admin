@@ -17,7 +17,7 @@ function ProjectItem({ data }: { data: Personal_Projects }) {
       };
     });
   }, [data, setModal]);
-  
+
   return (
     <div
       className="rounded-20 p-5 bg-black relative flex flex-col gap-5 cursor-pointer"

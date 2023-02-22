@@ -3,6 +3,7 @@ import { newDataState } from "@/store/newData";
 import { updatingDataState } from "@/store/updatingModal";
 import { TextField } from "@mui/material";
 import React from "react";
+import { VscGithub } from "react-icons/vsc";
 import { useRecoilState } from "recoil";
 import UpdateProjectCancel from "../buttons/UpdateProjectCancel";
 import UpdateProjectConfirm from "../buttons/UpdateProjectConfirm";
@@ -29,14 +30,30 @@ function ModalItem({
   const [modal, setModal] = useRecoilState(modalState);
   const [newData, setNewData] = useRecoilState(newDataState);
   const { data } = modal;
-  console.log(name, size);
   return (
-    <div className="inline-flex justify-center gap-2.5 items-center">
+    <div className={`inline-flex ${name === 'github_link' ? 'justify-start' :"justify-center"} gap-2.5 items-center`}>
       {!updatingData[name] ? (
-        <>
-          {data[name]}
-          <UpdateProjects name={name} size={size} />
-        </>
+        name !== "github_link" ? (
+          <>
+            {data[name]}
+            <UpdateProjects name={name} size={size} />
+          </>
+        ) : (
+          <>
+            <a
+              href={data.github_link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="visited:text-white no-underline"
+            >
+              <button className="hover:bg-black/[0.85] bg-black p-2.5 cursor-pointer duration-300 rounded-10 border-none text-white flex gap-2.5 items-center">
+                <span>자세히 보기</span>
+                <VscGithub size={20} />
+              </button>
+            </a>
+            <UpdateProjects name={name} size={size} />
+          </>
+        )
       ) : (
         <>
           <TextField
@@ -50,7 +67,6 @@ function ModalItem({
           <UpdateProjectConfirm
             name={name}
             newData={newData[name]}
-            id={data.projectId}
             index={index}
           />
           <UpdateProjectCancel name={name} />
