@@ -15,11 +15,15 @@ import SmallTitle from "@/components/layout/SmallTitle";
 import { FieldValues } from "react-hook-form";
 import AddData from "@/components/layout/AddData";
 import DeleteFieldsData from "@/components/layout/DeleteFieldsData";
+import SkillLevel from "@/components/layout/SkillLevel";
+import { useRecoilState } from "recoil";
+import { skillLevelState } from "@/store/skillLevel";
 
 function Skill() {
   const [field, setField] = useState([]);
   const [comments, setComments] = useState<string[]>([]);
   const [render, setRender] = useState(false);
+  const [skillLevel, setSkillLevel] = useRecoilState(skillLevelState);
 
   const bucket = collection(fireStore, "skill");
 
@@ -36,11 +40,15 @@ function Skill() {
         const response = await getDoc(docRef);
         console.log(response);
         setComments(response.data()?.[field[1]]);
+        const skillLevelRef = doc(fireStore, "skill_level", field[0]);
+        const skillLevelResponse = await getDoc(skillLevelRef);
+        setSkillLevel(skillLevelResponse.data?.[field[1]]);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [field, render]);
+
 
   const addComment = async (data: FieldValues) => {
     try {
@@ -85,6 +93,7 @@ function Skill() {
         </div>
         {field.length !== 0 ? (
           <>
+            <SkillLevel field={field} />
             <AddData title="수식어" addFuc={addComment} docName="comment" />
             <DeleteFieldsData
               title="수식어"

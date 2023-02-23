@@ -12,7 +12,6 @@ function ProjectItem({ data }: { data: Personal_Projects }) {
     setModal((prev) => {
       return {
         ...prev,
-        isOpen: true,
         data: data,
       };
     });
