@@ -38,17 +38,19 @@ function Skill() {
       try {
         const docRef = doc(fireStore, "skill", field[0]);
         const response = await getDoc(docRef);
-        console.log(response);
         setComments(response.data()?.[field[1]]);
-        const skillLevelRef = doc(fireStore, "skill_level", field[0]);
+        const skillLevelRef = doc(
+          fireStore,
+          "skill_level",
+          `${field[0]}_level`
+        );
         const skillLevelResponse = await getDoc(skillLevelRef);
-        setSkillLevel(skillLevelResponse.data?.[field[1]]);
+        setSkillLevel(skillLevelResponse.data()?.[field[1]]);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [field, render]);
-
 
   const addComment = async (data: FieldValues) => {
     try {
@@ -91,7 +93,7 @@ function Skill() {
             onChange={onChange}
           />
         </div>
-        {field.length !== 0 ? (
+        {typeof field === undefined || field.length !== 0 ? (
           <>
             <SkillLevel field={field} />
             <AddData title="수식어" addFuc={addComment} docName="comment" />

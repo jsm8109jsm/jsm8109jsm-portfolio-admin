@@ -8,17 +8,14 @@ import SmallTitle from "./SmallTitle";
 
 function SkillLevel({ field }: { field: string[] }) {
   const [skillLevel, setSkillLevel] = useRecoilState(skillLevelState);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const docRef = doc(fireStore, "skill_level", field[0]);
-        const response = await updateDoc(docRef, { [field[1]]: skillLevel });
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, [skillLevel]);
+  const updatingSkillLevel = async (newValue: number | null) => {
+    try {
+      const docRef = doc(fireStore, "skill_level", `${field[0]}_level`);
+      const response = await updateDoc(docRef, { [field[1]]: newValue });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -28,6 +25,7 @@ function SkillLevel({ field }: { field: string[] }) {
         value={skillLevel}
         onChange={(event, newValue) => {
           setSkillLevel(newValue);
+          updatingSkillLevel(newValue);
         }}
       />
     </div>
