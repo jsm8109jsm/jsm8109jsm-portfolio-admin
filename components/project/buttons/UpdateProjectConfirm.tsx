@@ -1,11 +1,12 @@
 import { modalState } from "@/store/modal";
+import { newDataState } from "@/store/newData";
 import { renderState } from "@/store/render";
 import { updatingDataState } from "@/store/updatingModal";
 import { fireStore } from "@/utils/Firebase";
 import { Button } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 function UpdatingProjectConfirm({
   name,
@@ -19,6 +20,7 @@ function UpdatingProjectConfirm({
   const [render, setRender] = useRecoilState(renderState);
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
   const [modal, setModal] = useRecoilState(modalState);
+  const setNewData = useSetRecoilState(newDataState);
 
   const { data } = modal;
 
@@ -32,6 +34,7 @@ function UpdatingProjectConfirm({
       const response = await updateDoc(projectRef, { [name]: newData });
       setRender((prev) => !prev);
       setUpdatingData((prev) => ({ ...prev, [name]: false }));
+      setNewData((prev) => ({ ...prev, [name]: "" }));
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +56,7 @@ function UpdatingProjectConfirm({
       console.log(response);
       setUpdatingData((prev) => ({ ...prev, stacks: false }));
       setRender((prev) => !prev);
+      setNewData((prev) => ({ ...prev, [name]: "" }));
     } catch (error) {
       console.log(error);
     }
