@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Skeleton, TextField } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, Modal, Skeleton, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { modalState } from "@/store/modal";
-import { ref } from "firebase/storage";
+import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { listAll } from "firebase/storage";
 import { fireStore, storage } from "@/utils/Firebase";
 import { getDownloadURL } from "firebase/storage";
@@ -13,6 +13,8 @@ import {
   Layers,
   Mood,
   MoodBad,
+  Clear,
+  Add,
 } from "@mui/icons-material";
 import Slider from "react-slick";
 import Image from "next/image";
@@ -22,10 +24,14 @@ import { updatingDataState } from "@/store/updatingModal";
 import { newDataState } from "@/store/newData";
 import ModalItem from "./modalLayout/ModalItem";
 import { doc, updateDoc } from "firebase/firestore";
-import { Clear, Add } from "@mui/icons-material";
 import { renderState } from "@/store/render";
 import UpdateProjectConfirm from "./buttons/UpdateProjectConfirm";
 import UpdateProjectCancel from "./buttons/UpdateProjectCancel";
+
+interface ImageList {
+  url: string;
+  name: string;
+}
 
 function ProjectModal() {
   const [modal, setModal] = useRecoilState(modalState);
@@ -33,8 +39,10 @@ function ProjectModal() {
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
   const [render, setRender] = useRecoilState(renderState);
 
-  const [imageList, setImageList] = useState<string[]>([]);
+  const [imageList, setImageList] = useState<ImageList[]>([]);
   const [newData, setNewData] = useRecoilState(newDataState);
+
+  const imageRef = useRef<HTMLInputElement>(null);
   const [newStack, setNewStack] = useState("");
 
   const { data, isOpen, value } = modal;
@@ -66,7 +74,13 @@ function ProjectModal() {
         listAll(imageListRef).then((response) => {
           response.items.map((item) => {
             getDownloadURL(item).then((url) => {
-              setImageList((prev) => [...prev, url]);
+              setImageList((prev) => [
+                ...prev,
+                {
+                  name: item.fullPath,
+                  url: url,
+                },
+              ]);
             });
           });
         });
@@ -75,6 +89,16 @@ function ProjectModal() {
       }
     })();
   }, [data.imageName, value]);
+
+  const deleteImage = async (imageName: string) => {
+    try {
+      const imageRef = ref(storage, imageName);
+      const response = await deleteObject(imageRef);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const deleteStacks = async (index: number) => {
     try {
@@ -96,6 +120,34 @@ function ProjectModal() {
     }
   };
 
+  const updateImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const imageUpload = event.target.files[0];
+      if (imageUpload === null) return;
+
+      const imageRef = ref(
+        storage,
+        `images/${value === 0 ? "personal" : "team"}/projects/${
+          data.imageName
+        }/${imageList.length}.png`
+      );
+      uploadBytes(imageRef, imageUpload).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImageList((prev) => [
+            ...prev,
+            {
+              name: `images/${value === 0 ? "personal" : "team"}/${
+                imageList.length
+              }.png`,
+              url: url,
+            },
+          ]);
+        });
+      });
+      setRender((prev) => !prev);
+    }
+  };
+
   return (
     <Modal
       onClose={() => setModal((prev) => ({ ...prev, isOpen: false }))}
@@ -112,17 +164,41 @@ function ProjectModal() {
         <div className="flex gap-10 w-full mt-5">
           {imageList.length > 0 ? (
             <div className="w-[22.5rem]">
-              <Slider {...settings}>
-                {imageList.map((url, index) => (
-                  <Image
-                    className="!h-[auto] !relative"
-                    src={url}
-                    alt={`${data.name} 사진`}
-                    key={index}
-                    fill
-                  />
-                ))}
-              </Slider>
+              <div className="relative">
+                <Slider {...settings}>
+                  {imageList.map((item, index) => (
+                    <div key={index} className="relative">
+                      <Image
+                        className="!h-[auto] !relative"
+                        src={item.url}
+                        alt={`${data.name} 사진`}
+                        fill
+                      />
+                      <div className="cursor-pointer absolute w-6 h-6 rounded-full top-1 right-1 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center">
+                        <Clear
+                          onClick={() => deleteImage(item.name)}
+                          fontSize="small"
+                        />
+                      </div>
+                      <div
+                        onClick={() => imageRef.current?.click()}
+                        className="cursor-pointer absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
+                      >
+                        <Add />
+                        <input
+                          hidden
+                          accept="image/*"
+                          type="file"
+                          ref={imageRef}
+                          onChange={(e) => {
+                            updateImage(e);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </Slider>
+              </div>
               <span className="text-center block">{`${imageIndex} / ${imageList.length}`}</span>
             </div>
           ) : (

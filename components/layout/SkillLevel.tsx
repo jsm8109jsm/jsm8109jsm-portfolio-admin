@@ -11,7 +11,9 @@ function SkillLevel({ field }: { field: string[] }) {
   const updatingSkillLevel = async (newValue: number | null) => {
     try {
       const docRef = doc(fireStore, "skill_level", `${field[0]}_level`);
-      const response = await updateDoc(docRef, { [field[1]]: newValue });
+      const response = await updateDoc(docRef, {
+        [`${[field[1]]}_level`]: newValue,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -22,7 +24,7 @@ function SkillLevel({ field }: { field: string[] }) {
       <SmallTitle>숙련도 조정</SmallTitle>
       <Rating
         name="simple-controlled"
-        value={skillLevel}
+        value={skillLevel ?? 0}
         onChange={(event, newValue) => {
           setSkillLevel(newValue);
           updatingSkillLevel(newValue);

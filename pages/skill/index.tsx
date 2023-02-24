@@ -45,7 +45,7 @@ function Skill() {
           `${field[0]}_level`
         );
         const skillLevelResponse = await getDoc(skillLevelRef);
-        setSkillLevel(skillLevelResponse.data()?.[field[1]]);
+        setSkillLevel(skillLevelResponse.data()?.[`${field[1]}_level`]);
       } catch (error) {
         console.log(error);
       }
