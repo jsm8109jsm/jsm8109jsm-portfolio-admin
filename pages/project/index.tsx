@@ -28,20 +28,20 @@ function Project() {
     setImageList([]);
   };
 
-  useEffect(() => {
-    setImageList([]);
-    const imageListRef = ref(
-      storage,
-      `images/${value === 0 ? "personal" : "team"}`
-    );
-    listAll(imageListRef).then((response) => {
-      response.items.map((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, [value, render]);
+  // useEffect(() => {
+  //   setImageList([]);
+  //   const imageListRef = ref(
+  //     storage,
+  //     `images/${value === 0 ? "personal" : "team"}`
+  //   );
+  //   listAll(imageListRef).then((response) => {
+  //     response.items.map((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageList((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, [value, render]);
 
   useEffect(() => {
     (async () => {
@@ -65,9 +65,12 @@ function Project() {
           response.items.map((item) => {
             getDownloadURL(item).then((url) => {
               newData = newData.map((data) => {
+                console.log(item.name.slice(0, -4), data.imageName);
                 return data.imageName === item.name.slice(0, -4)
                   ? { ...data, url: url }
-                  : data;
+                  : data.url
+                  ? data
+                  : { ...data, url: "/" };
               });
               setProjects(newData);
             });
@@ -78,6 +81,8 @@ function Project() {
       }
     })();
   }, [value, render]);
+
+  console.log(projects);
 
   return (
     <>
