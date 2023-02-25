@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Modal, Skeleton, TextField } from "@mui/material";
+import { Modal, Skeleton, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { modalState } from "@/store/modal";
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
 import { listAll } from "firebase/storage";
 import { fireStore, storage } from "@/utils/Firebase";
 import { getDownloadURL } from "firebase/storage";
-import { VscGithub } from "react-icons/vsc";
 import {
   ChevronLeft,
   ChevronRight,
@@ -21,7 +20,6 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { updatingDataState } from "@/store/updatingModal";
-import { newDataState } from "@/store/newData";
 import ModalItem from "./modalLayout/ModalItem";
 import { doc, updateDoc } from "firebase/firestore";
 import { renderState } from "@/store/render";
@@ -40,7 +38,6 @@ function ProjectModal() {
   const [render, setRender] = useRecoilState(renderState);
 
   const [imageList, setImageList] = useState<ImageList[]>([]);
-  const [newData, setNewData] = useRecoilState(newDataState);
 
   const imageRef = useRef<HTMLInputElement>(null);
   const [newStack, setNewStack] = useState("");
@@ -61,6 +58,7 @@ function ProjectModal() {
     prevArrow: <ChevronLeft className="text-black" />,
     nextArrow: <ChevronRight className="text-black" />,
   };
+
   useEffect(() => {
     (async () => {
       try {

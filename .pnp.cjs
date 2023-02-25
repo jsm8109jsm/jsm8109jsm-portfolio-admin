@@ -49,7 +49,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
-            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1"],\
+            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.43.2"],\
             ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
             ["react-slick", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0"],\
             ["recoil", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.7.6"],\
@@ -6143,7 +6143,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["postcss", "npm:8.4.21"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:18.2.0"],\
-            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1"],\
+            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.43.2"],\
             ["react-icons", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:4.7.1"],\
             ["react-slick", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.29.0"],\
             ["recoil", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:0.7.6"],\
@@ -8064,17 +8064,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-hook-form", [\
-        ["npm:7.42.1", {\
-          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.42.1-4e859d521c-f0dcf5d7f6.zip/node_modules/react-hook-form/",\
+        ["npm:7.43.2", {\
+          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.43.2-9a7cae44a3-68d4fb73fe.zip/node_modules/react-hook-form/",\
           "packageDependencies": [\
-            ["react-hook-form", "npm:7.42.1"]\
+            ["react-hook-form", "npm:7.43.2"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1", {\
-          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-e7fd9b7260/0/cache/react-hook-form-npm-7.42.1-4e859d521c-f0dcf5d7f6.zip/node_modules/react-hook-form/",\
+        ["virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.43.2", {\
+          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-4b31fee7e6/0/cache/react-hook-form-npm-7.43.2-9a7cae44a3-68d4fb73fe.zip/node_modules/react-hook-form/",\
           "packageDependencies": [\
-            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.42.1"],\
+            ["react-hook-form", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:7.43.2"],\
             ["@types/react", "npm:18.0.27"],\
             ["react", "npm:18.2.0"]\
           ],\

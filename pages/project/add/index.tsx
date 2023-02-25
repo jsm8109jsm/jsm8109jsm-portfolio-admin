@@ -1,7 +1,7 @@
 import BigTitle from "@/components/layout/BigTitle";
 import Sidebar from "@/components/layout/Sidebar";
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Button } from "@mui/material";
+import { Tabs, Tab, Button, TextField } from "@mui/material";
 import {
   ref,
   uploadBytes,
@@ -10,11 +10,13 @@ import {
   deleteObject,
 } from "firebase/storage";
 import Image from "next/image";
-import { Close } from "@mui/icons-material";
+import { Clear, Close, Layers, Mood, MoodBad } from "@mui/icons-material";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 
 import { storage } from "@/utils/Firebase";
 
 import Slider from "react-slick";
+import AddProjectInput from "@/components/layout/AddProjectInput";
 
 interface ImageList {
   url: string;
@@ -35,8 +37,9 @@ function Add() {
     speed: 500,
   };
 
+  // const { register, handleSubmit, resetField } = useForm();
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log(newValue);
     setValue(newValue);
     setImageList([]);
   };
@@ -62,8 +65,6 @@ function Add() {
     });
   }, [value, render]);
 
-  console.log(imageList);
-
   const deleteImage = async (name: string) => {
     try {
       const desertRef = ref(storage, name);
@@ -74,7 +75,7 @@ function Add() {
       console.log(error);
     }
   };
-
+  const methods = useForm();
   return (
     <>
       <Sidebar />
@@ -84,7 +85,7 @@ function Add() {
           <Tab label="개인 프로젝트" className="bg-white" />
           <Tab label="팀 프로젝트" className="bg-white" />
         </Tabs>
-        <Button variant="contained" component="label" className="w-48">
+        {/* <Button variant="contained" component="label" className="w-48">
           Image Upload
           <input
             hidden
@@ -137,28 +138,26 @@ function Add() {
               </div>
             );
           })}
-        </Slider>
-
-        {/* <Slider {...settings}>
-          <div>
-            <h3>1</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
         </Slider> */}
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit((data: FieldValues) => {
+              console.log(data);
+            })}
+            className="flex flex-col gap-5"
+          >
+            <AddProjectInput name="title" label="제목" />
+            <AddProjectInput name="start_month" label="시작한 달" />
+            <AddProjectInput name="finish_month" label="끝마친 달" />
+            <AddProjectInput name="intro" label="한 줄 소개" />
+            <AddProjectInput name="feel" label="느낀 점" />
+            <AddProjectInput name="hard" label="힘들었던 점" />
+            <AddProjectInput name="github_link" label="깃허브 링크" />
+            <Button type="submit" className="w-48">
+              asdf
+            </Button>
+          </form>
+        </FormProvider>
       </div>
     </>
   );

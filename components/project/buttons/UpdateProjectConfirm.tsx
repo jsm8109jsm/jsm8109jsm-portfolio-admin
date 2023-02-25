@@ -53,7 +53,6 @@ function UpdatingProjectConfirm({
       const response = await updateDoc(projectRef, {
         stacks: [...stacks, newData],
       });
-      console.log(response);
       setUpdatingData((prev) => ({ ...prev, stacks: false }));
       setRender((prev) => !prev);
       setNewData((prev) => ({ ...prev, [name]: "" }));
