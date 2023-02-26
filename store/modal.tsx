@@ -5,6 +5,7 @@ export const modalState = atom<{
   isOpen: boolean;
   data: Personal_Projects;
   value: number;
+  index: number;
 }>({
   key: `ModalState`,
   default: {
@@ -21,5 +22,6 @@ export const modalState = atom<{
       hard: "",
     },
     value: 0,
+    index: 0,
   },
 });

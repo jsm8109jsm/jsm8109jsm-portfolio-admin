@@ -10,6 +10,7 @@ import { collection, getDocs } from "firebase/firestore";
 import ProjectItem from "@/components/project/ProjectItem";
 import { renderState } from "@/store/render";
 import { useRecoilState } from "recoil";
+import { modalState } from "@/store/modal";
 
 export interface Personal_Projects {
   [key: string]: any;
@@ -21,6 +22,7 @@ function Project() {
   // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageList, setImageList] = useState<string[]>([]);
   const [projects, setProjects] = useState<Personal_Projects[]>([]);
+  const [modal, setModal] = useRecoilState(modalState);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log(newValue);
@@ -65,7 +67,6 @@ function Project() {
           response.items.map((item) => {
             getDownloadURL(item).then((url) => {
               newData = newData.map((data) => {
-                console.log(item.name.slice(0, -4), data.imageName);
                 return data.imageName === item.name.slice(0, -4)
                   ? { ...data, url: url }
                   : data.url
@@ -82,7 +83,15 @@ function Project() {
     })();
   }, [value, render]);
 
-  console.log(projects);
+  // useEffect(() => {
+  //   console.log(modal);
+  //   setModal((prev) => {
+  //     return {
+  //       ...prev,
+  //       data: projects[modal.index],
+  //     };
+  //   });
+  // }, [projects, setModal]);
 
   return (
     <>
@@ -94,8 +103,8 @@ function Project() {
           <Tab label="팀 프로젝트" className="bg-white" />
         </Tabs>
         <div className="grid grid-cols-3 gap-5">
-          {projects.map((item) => {
-            return <ProjectItem key={item.id} data={item}></ProjectItem>;
+          {projects.map((item, index) => {
+            return <ProjectItem key={item.id} data={item} index={index} />;
           })}
         </div>
       </div>

@@ -5,7 +5,7 @@ import { updatingDataState } from "@/store/updatingModal";
 import { fireStore } from "@/utils/Firebase";
 import { Button } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 function UpdatingProjectConfirm({
@@ -40,6 +40,15 @@ function UpdatingProjectConfirm({
     }
   };
 
+  // useEffect(() => {
+  //   setModal((prev) => {
+  //     return {
+  //       ...prev,
+  //       data: data,
+  //     };
+  //   });
+  // }, [data, setModal]);
+
   const updateArrayProject = async () => {
     try {
       const projectRef = doc(
@@ -47,8 +56,7 @@ function UpdatingProjectConfirm({
         `${index === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
-      let stacks = data.stacks;
-      console.log(stacks);
+      let stacks = data.stacks ?? [];
 
       const response = await updateDoc(projectRef, {
         stacks: [...stacks, newData],

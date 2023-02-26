@@ -5,16 +5,25 @@ import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { renderState } from "@/store/render";
 
-function ProjectItem({ data }: { data: Personal_Projects }) {
+function ProjectItem({
+  data,
+  index,
+}: {
+  data: Personal_Projects;
+  index: number;
+}) {
   const [modal, setModal] = useRecoilState(modalState);
 
   useEffect(() => {
-    setModal((prev) => {
-      return {
-        ...prev,
-        data: data,
-      };
-    });
+    console.log(modal.index, index);
+    if (modal.index === index) {
+      setModal((prev) => {
+        return {
+          ...prev,
+          data: data,
+        };
+      });
+    }
   }, [data, setModal]);
 
   return (
@@ -26,6 +35,7 @@ function ProjectItem({ data }: { data: Personal_Projects }) {
             ...prev,
             isOpen: true,
             data: data,
+            index: index,
           };
         })
       }

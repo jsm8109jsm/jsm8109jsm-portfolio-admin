@@ -110,7 +110,6 @@ function ProjectModal() {
       );
 
       const response = await updateDoc(projectRef, { stacks: stacks });
-      console.log(response);
       setUpdatingData((prev) => ({ ...prev, stacks: false }));
       setRender((prev) => !prev);
     } catch (error) {
@@ -148,7 +147,10 @@ function ProjectModal() {
 
   return (
     <Modal
-      onClose={() => setModal((prev) => ({ ...prev, isOpen: false }))}
+      onClose={() => {
+        setModal((prev) => ({ ...prev, isOpen: false }));
+        setImageIndex(1);
+      }}
       open={isOpen}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
@@ -167,10 +169,11 @@ function ProjectModal() {
                   {imageList.map((item, index) => (
                     <div key={index} className="relative">
                       <Image
-                        className="!h-[auto] !relative"
+                        // className="!h-[auto] !relative"
                         src={item.url}
                         alt={`${data.name} 사진`}
-                        fill
+                        width={360}
+                        height={225.3}
                       />
                       <div className="cursor-pointer absolute w-6 h-6 rounded-full top-1 right-1 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center">
                         <Clear
@@ -200,9 +203,31 @@ function ProjectModal() {
               <span className="text-center block">{`${imageIndex} / ${imageList.length}`}</span>
             </div>
           ) : (
-            <Skeleton variant="rectangular" width={360} height={225.3} />
+            <div className="relative h-[225.53px]">
+              <div
+                onClick={() => imageRef.current?.click()}
+                className="cursor-pointer z-10 absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
+              >
+                <Add />
+                <input
+                  hidden
+                  accept="image/*"
+                  type="file"
+                  ref={imageRef}
+                  onChange={(e) => {
+                    updateImage(e);
+                  }}
+                />
+              </div>
+              <Skeleton
+                variant="rectangular"
+                width={360}
+                height={225.3}
+                className="relative z-0"
+              />
+            </div>
           )}
-          <div className="flex flex-col gap-5 w-full">
+          <div className="flex flex-col gap-5 w-[336px]">
             <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
               <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
                 <ModalItem name="intro" index={value} size="small" />

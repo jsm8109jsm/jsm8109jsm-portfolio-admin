@@ -1,14 +1,17 @@
 import { fireStore, storage } from "@/utils/Firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import { Button } from "@mui/material";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import AddProjectInput from "./AddProjectInput";
+import { useRouter } from "next/router";
 
 function AddProjectForm({ index }: { index: number }) {
   const methods = useForm();
   const [image, setImage] = useState<File>();
+  const router = useRouter();
+  const [length, setLength] = useState(0);
 
   const addProject = async (data: FieldValues) => {
     try {
@@ -16,7 +19,7 @@ function AddProjectForm({ index }: { index: number }) {
         fireStore,
         `${index === 0 ? "personal" : "team"}_projects`
       );
-      const response = await addDoc(bucket, data);
+      const response = await addDoc(bucket, { ...data, id: length });
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -51,12 +54,46 @@ function AddProjectForm({ index }: { index: number }) {
     // });
   };
 
+  const addImageList = async (data: FieldValues) => {
+    if (image === undefined) return;
+    try {
+      const imageRef = ref(
+        storage,
+        `images/${index === 0 ? "personal" : "team"}/projects/${
+          data.imageName
+        }/0.png`
+      );
+      await uploadBytes(imageRef, image);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const bucket = collection(
+          fireStore,
+          `${index === 0 ? "personal" : "team"}_projects`
+        );
+
+        const response = await getDocs(bucket);
+        console.log(response.docs.length);
+        setLength(response.docs.length);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [index]);
+
   return (
     <FormProvider {...methods}>
       <form
         onSubmit={methods.handleSubmit((data: FieldValues) => {
           addProject(data);
           addImage(data);
+          addImageList(data);
+          router.push("/project");
         })}
         className="flex flex-col gap-5"
       >

@@ -29,15 +29,6 @@ function Add() {
   const [render, setRender] = useState(false);
   // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageList, setImageList] = useState<ImageList[]>([]);
-  const settings = {
-    arrows: true,
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    speed: 500,
-  };
-
   // const { register, handleSubmit, resetField } = useForm();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -65,8 +56,6 @@ function Add() {
       });
     });
   }, [value, render]);
-
-  const methods = useForm();
 
   return (
     <>
