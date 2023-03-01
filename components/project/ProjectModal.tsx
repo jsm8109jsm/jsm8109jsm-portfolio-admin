@@ -25,6 +25,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { renderState } from "@/store/render";
 import UpdateProjectConfirm from "./buttons/UpdateProjectConfirm";
 import UpdateProjectCancel from "./buttons/UpdateProjectCancel";
+import { dialogState } from "@/store/dialog";
 
 interface ImageList {
   url: string;
@@ -37,6 +38,7 @@ function ProjectModal() {
   const [updatingData, setUpdatingData] = useRecoilState(updatingDataState);
   const [render, setRender] = useRecoilState(renderState);
 
+  const [dialog, setDialog] = useRecoilState(dialogState);
   const [imageList, setImageList] = useState<ImageList[]>([]);
 
   const imageRef = useRef<HTMLInputElement>(null);
@@ -154,146 +156,163 @@ function ProjectModal() {
       open={isOpen}
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
-        <h1 className="text-5xl text-center m-0 font-black">
-          <ModalItem name="name" index={value} size="large" />
-        </h1>
-        <h6 className="text-[#808080] m-0 text-center text-2xl">
-          <ModalItem name="start_month" index={value} size="small" /> ~{" "}
-          <ModalItem name="finish_month" index={value} size="small" />
-        </h6>
-        <div className="flex gap-10 w-full mt-5">
-          {imageList.length > 0 ? (
-            <div className="w-[22.5rem]">
-              <div className="relative">
-                <Slider {...settings}>
-                  {imageList.map((item, index) => (
-                    <div key={index} className="relative">
-                      <Image
-                        // className="!h-[auto] !relative"
-                        src={item.url}
-                        alt={`${data.name} 사진`}
-                        width={360}
-                        height={225.3}
-                      />
-                      <div className="cursor-pointer absolute w-6 h-6 rounded-full top-1 right-1 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center">
-                        <Clear
-                          onClick={() => deleteImage(item.name)}
-                          fontSize="small"
+        <div className="relative">
+          <Clear
+            className="absolute top-2 right-2 cursor-pointer"
+            onClick={() =>
+              setDialog((prev) => ({
+                ...prev,
+                isOpen: true,
+                index: value,
+                id: data.projectId,
+                imageName: data.imageName,
+              }))
+            }
+          />
+          <h1 className="text-5xl text-center m-0 font-black">
+            <ModalItem name="name" index={value} size="large" />
+          </h1>
+          <h6 className="text-[#808080] m-0 text-center text-2xl">
+            <ModalItem name="start_month" index={value} size="small" /> ~{" "}
+            <ModalItem name="finish_month" index={value} size="small" />
+          </h6>
+          <div className="flex gap-10 w-full mt-5">
+            {imageList.length > 0 ? (
+              <div className="w-[22.5rem]">
+                <div className="relative">
+                  <Slider {...settings}>
+                    {imageList.map((item, index) => (
+                      <div key={index} className="relative">
+                        <Image
+                          // className="!h-[auto] !relative"
+                          src={item.url}
+                          alt={`${data.name} 사진`}
+                          width={360}
+                          height={225.3}
                         />
-                      </div>
-                      <div
-                        onClick={() => imageRef.current?.click()}
-                        className="cursor-pointer absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
-                      >
-                        <Add />
-                        <input
-                          hidden
-                          accept="image/*"
-                          type="file"
-                          ref={imageRef}
-                          onChange={(e) => {
-                            updateImage(e);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </Slider>
-              </div>
-              <span className="text-center block">{`${imageIndex} / ${imageList.length}`}</span>
-            </div>
-          ) : (
-            <div className="relative h-[225.53px]">
-              <div
-                onClick={() => imageRef.current?.click()}
-                className="cursor-pointer z-10 absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
-              >
-                <Add />
-                <input
-                  hidden
-                  accept="image/*"
-                  type="file"
-                  ref={imageRef}
-                  onChange={(e) => {
-                    updateImage(e);
-                  }}
-                />
-              </div>
-              <Skeleton
-                variant="rectangular"
-                width={360}
-                height={225.3}
-                className="relative z-0"
-              />
-            </div>
-          )}
-          <div className="flex flex-col gap-5 w-[336px]">
-            <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
-              <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
-                <ModalItem name="intro" index={value} size="small" />
-              </h3>
-              <div>
-                <h4 className="item-title">
-                  <Layers />
-                  사용한 기술 스택
-                </h4>
-                <div className="flex flex-wrap gap-2.5 w-full items-center">
-                  {data.stacks &&
-                    data.stacks.map((stack: string, index: number) => (
-                      <div
-                        key={index}
-                        className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-[#000]"
-                      >
-                        {stack}
-                        <Clear
-                          className="cursor-pointer"
-                          onClick={() => deleteStacks(index)}
-                        />
+                        <div className="cursor-pointer absolute w-6 h-6 rounded-full top-1 right-1 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center">
+                          <Clear
+                            onClick={() => deleteImage(item.name)}
+                            fontSize="small"
+                          />
+                        </div>
+                        <div
+                          onClick={() => imageRef.current?.click()}
+                          className="cursor-pointer absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
+                        >
+                          <Add />
+                          <input
+                            hidden
+                            accept="image/*"
+                            type="file"
+                            ref={imageRef}
+                            onChange={(e) => {
+                              updateImage(e);
+                            }}
+                          />
+                        </div>
                       </div>
                     ))}
-                  {!updatingData.stacks ? (
-                    <>
-                      <Add
-                        className="cursor-pointer"
-                        onClick={() =>
-                          setUpdatingData((prev) => ({ ...prev, stacks: true }))
-                        }
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <TextField
-                        label="stacks"
-                        value={newStack}
-                        variant="outlined"
-                        onChange={(e) => setNewStack(e.target.value)}
-                      />
-                      <UpdateProjectConfirm
-                        name="stacks"
-                        newData={newStack}
-                        index={value}
-                      />
-                      <UpdateProjectCancel name="stacks" />
-                    </>
-                  )}
+                  </Slider>
+                </div>
+                <span className="text-center block">{`${imageIndex} / ${imageList.length}`}</span>
+              </div>
+            ) : (
+              <div className="relative h-[225.53px]">
+                <div
+                  onClick={() => imageRef.current?.click()}
+                  className="cursor-pointer z-10 absolute w-8 h-8 rounded-full top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white border-[1px] border-[#000] border-solid flex items-center justify-center"
+                >
+                  <Add />
+                  <input
+                    hidden
+                    accept="image/*"
+                    type="file"
+                    ref={imageRef}
+                    onChange={(e) => {
+                      updateImage(e);
+                    }}
+                  />
+                </div>
+                <Skeleton
+                  variant="rectangular"
+                  width={360}
+                  height={225.3}
+                  className="relative z-0"
+                />
+              </div>
+            )}
+            <div className="flex flex-col gap-5 w-[336px]">
+              <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
+                <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
+                  <ModalItem name="intro" index={value} size="small" />
+                </h3>
+                <div>
+                  <h4 className="item-title">
+                    <Layers />
+                    사용한 기술 스택
+                  </h4>
+                  <div className="flex flex-wrap gap-2.5 w-full items-center">
+                    {data.stacks &&
+                      data.stacks.map((stack: string, index: number) => (
+                        <div
+                          key={index}
+                          className="bg-white rounded-[5px] p-[5px] border-[1px] border-solid border-[#000]"
+                        >
+                          {stack}
+                          <Clear
+                            className="cursor-pointer"
+                            onClick={() => deleteStacks(index)}
+                          />
+                        </div>
+                      ))}
+                    {!updatingData.stacks ? (
+                      <>
+                        <Add
+                          className="cursor-pointer"
+                          onClick={() =>
+                            setUpdatingData((prev) => ({
+                              ...prev,
+                              stacks: true,
+                            }))
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <TextField
+                          label="stacks"
+                          value={newStack}
+                          variant="outlined"
+                          onChange={(e) => setNewStack(e.target.value)}
+                        />
+                        <UpdateProjectConfirm
+                          name="stacks"
+                          newData={newStack}
+                          index={value}
+                        />
+                        <UpdateProjectCancel name="stacks" />
+                      </>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <h4 className="item-title">
+                    <Mood />
+                    느낀 점
+                  </h4>
+                  <ModalItem name="feel" index={value} size="small" />
+                </div>
+                <div>
+                  <h4 className="item-title">
+                    <MoodBad />
+                    힘들었던 점
+                  </h4>
+                  <ModalItem name="hard" index={value} size="small" />
                 </div>
               </div>
-              <div>
-                <h4 className="item-title">
-                  <Mood />
-                  느낀 점
-                </h4>
-                <ModalItem name="feel" index={value} size="small" />
-              </div>
-              <div>
-                <h4 className="item-title">
-                  <MoodBad />
-                  힘들었던 점
-                </h4>
-                <ModalItem name="hard" index={value} size="small" />
-              </div>
+              <ModalItem name="github_link" index={value} size="small" />
             </div>
-            <ModalItem name="github_link" index={value} size="small" />
           </div>
         </div>
       </div>

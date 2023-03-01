@@ -30,21 +30,6 @@ function Project() {
     setImageList([]);
   };
 
-  // useEffect(() => {
-  //   setImageList([]);
-  //   const imageListRef = ref(
-  //     storage,
-  //     `images/${value === 0 ? "personal" : "team"}`
-  //   );
-  //   listAll(imageListRef).then((response) => {
-  //     response.items.map((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageList((prev) => [...prev, url]);
-  //       });
-  //     });
-  //   });
-  // }, [value, render]);
-
   useEffect(() => {
     (async () => {
       try {
@@ -82,16 +67,6 @@ function Project() {
       }
     })();
   }, [value, render]);
-
-  // useEffect(() => {
-  //   console.log(modal);
-  //   setModal((prev) => {
-  //     return {
-  //       ...prev,
-  //       data: projects[modal.index],
-  //     };
-  //   });
-  // }, [projects, setModal]);
 
   return (
     <>

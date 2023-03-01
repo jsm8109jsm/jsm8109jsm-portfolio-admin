@@ -15,7 +15,6 @@ function ProjectItem({
   const [modal, setModal] = useRecoilState(modalState);
 
   useEffect(() => {
-    console.log(modal.index, index);
     if (modal.index === index) {
       setModal((prev) => {
         return {
