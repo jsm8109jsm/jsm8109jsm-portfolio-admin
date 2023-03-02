@@ -1,22 +1,10 @@
 import BigTitle from "@/components/layout/BigTitle";
 import Sidebar from "@/components/layout/Sidebar";
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Button, TextField } from "@mui/material";
-import {
-  ref,
-  uploadBytes,
-  listAll,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
-import Image from "next/image";
-import { Clear, Close, Layers, Mood, MoodBad } from "@mui/icons-material";
-import { FieldValues, FormProvider, useForm } from "react-hook-form";
-
+import { Tabs, Tab } from "@mui/material";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { storage } from "@/utils/Firebase";
 
-import Slider from "react-slick";
-import AddProjectInput from "@/components/layout/AddProjectInput";
 import AddProjectForm from "@/components/layout/AddProjectForm";
 
 interface ImageList {
