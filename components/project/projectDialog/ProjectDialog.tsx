@@ -4,7 +4,7 @@ import { renderState } from "@/store/render";
 import { fireStore, storage } from "@/utils/Firebase";
 import { Button, Dialog, DialogTitle } from "@mui/material";
 import { deleteDoc, doc } from "firebase/firestore";
-import { deleteObject, ref } from "firebase/storage";
+import { deleteObject, listAll, ref } from "firebase/storage";
 import React from "react";
 import { useRecoilState } from "recoil";
 
@@ -45,7 +45,17 @@ function ProjectDialog() {
         storage,
         `images/${index === 0 ? "personal" : "team"}/projects/${imageName}`
       );
-      const response = await deleteObject(imageRef);
+      const response = await listAll(imageRef);
+      response.items.forEach((item) =>
+        deleteObject(
+          ref(
+            storage,
+            `images/${
+              index === 0 ? "personal" : "team"
+            }/projects/${imageName}/${item.name}`
+          )
+        )
+      );
     } catch (error) {
       console.log(error);
     }
