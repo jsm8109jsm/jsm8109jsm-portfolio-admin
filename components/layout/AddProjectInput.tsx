@@ -1,9 +1,16 @@
 import { TextField } from "@mui/material";
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
 
-function AddProjectInput({ label, name }: { label: string; name: string }) {
-  const { register } = useFormContext();
+function AddProjectInput({
+  label,
+  name,
+  register,
+}: {
+  label: string;
+  name: string;
+  register: UseFormRegister<FieldValues>;
+}) {
   return (
     <div className="flex gap-4 items-center">
       <span className="text-2xl font-bold inline-block w-[110.12px]">

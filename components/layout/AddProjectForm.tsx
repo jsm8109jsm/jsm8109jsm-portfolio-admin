@@ -8,7 +8,7 @@ import AddProjectInput from "./AddProjectInput";
 import { useRouter } from "next/router";
 
 function AddProjectForm({ index }: { index: number }) {
-  const methods = useForm();
+  const { register, handleSubmit } = useForm();
   const [image, setImage] = useState<File>();
   const router = useRouter();
   const [length, setLength] = useState(0);
@@ -87,41 +87,39 @@ function AddProjectForm({ index }: { index: number }) {
   }, [index]);
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={methods.handleSubmit((data: FieldValues) => {
-          addProject(data);
-          addImage(data);
-          addImageList(data);
-          router.push("/project");
-        })}
-        className="flex flex-col gap-5"
-      >
-        <AddProjectInput name="name" label="제목" />
-        <AddProjectInput name="start_month" label="시작한 달" />
-        <AddProjectInput name="finish_month" label="끝마친 달" />
-        <AddProjectInput name="intro" label="한 줄 소개" />
-        <AddProjectInput name="feel" label="느낀 점" />
-        <AddProjectInput name="hard" label="힘들었던 점" />
-        <AddProjectInput name="github_link" label="깃허브 링크" />
-        <AddProjectInput name="imageName" label="대표 이미지" />
-        <Button variant="contained" component="label" className="w-48">
-          대표 이미지 업로드
-          <input
-            hidden
-            accept="image/*"
-            multiple
-            type="file"
-            onChange={(e) => {
-              if (e.target.files) setImage(e.target.files[0]);
-            }}
-          />
-        </Button>
-        <Button type="submit" className="w-48 bg-[#1976d2]" variant="contained">
-          생성
-        </Button>
-      </form>
-    </FormProvider>
+    <form
+      onSubmit={handleSubmit((data: FieldValues) => {
+        addProject(data);
+        addImage(data);
+        addImageList(data);
+        router.push("/project");
+      })}
+      className="flex flex-col gap-5"
+    >
+      <AddProjectInput register={register} name="name" label="제목" />
+      <AddProjectInput register={register} name="start_month" label="시작한 달" />
+      <AddProjectInput register={register} name="finish_month" label="끝마친 달" />
+      <AddProjectInput register={register} name="intro" label="한 줄 소개" />
+      <AddProjectInput register={register} name="feel" label="느낀 점" />
+      <AddProjectInput register={register} name="hard" label="힘들었던 점" />
+      <AddProjectInput register={register} name="github_link" label="깃허브 링크" />
+      <AddProjectInput register={register} name="imageName" label="대표 이미지" />
+      <Button variant="contained" component="label" className="w-48">
+        대표 이미지 업로드
+        <input
+          hidden
+          accept="image/*"
+          multiple
+          type="file"
+          onChange={(e) => {
+            if (e.target.files) setImage(e.target.files[0]);
+          }}
+        />
+      </Button>
+      <Button type="submit" className="w-48 bg-[#1976d2]" variant="contained">
+        생성
+      </Button>
+    </form>
   );
 }
 
