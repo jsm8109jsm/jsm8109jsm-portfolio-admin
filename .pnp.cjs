@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/sdks", "npm:3.0.0-rc.36"],\
             ["antd", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.2.1"],\
             ["autoprefixer", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:10.4.13"],\
+            ["babel-plugin-import", "npm:1.13.6"],\
             ["eslint", "npm:8.32.0"],\
             ["eslint-config-next", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:13.1.6"],\
             ["firebase", "npm:9.16.0"],\
@@ -3257,6 +3258,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["babel-plugin-import", [\
+        ["npm:1.13.6", {\
+          "packageLocation": "./.yarn/cache/babel-plugin-import-npm-1.13.6-12e369cb1a-1c872a556a.zip/node_modules/babel-plugin-import/",\
+          "packageDependencies": [\
+            ["babel-plugin-import", "npm:1.13.6"],\
+            ["@babel/helper-module-imports", "npm:7.18.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["babel-plugin-macros", [\
         ["npm:3.1.0", {\
           "packageLocation": "./.yarn/cache/babel-plugin-macros-npm-3.1.0-320e781f4e-765de4abeb.zip/node_modules/babel-plugin-macros/",\
@@ -6136,6 +6147,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/sdks", "npm:3.0.0-rc.36"],\
             ["antd", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:5.2.1"],\
             ["autoprefixer", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:10.4.13"],\
+            ["babel-plugin-import", "npm:1.13.6"],\
             ["eslint", "npm:8.32.0"],\
             ["eslint-config-next", "virtual:05f5af669421536171c75512623d54f324a07179a49a175456b71c3325576db361d3dbfb890e3ab7b26f789a319da800d956efee173666a61f39c6ec84d58244#npm:13.1.6"],\
             ["firebase", "npm:9.16.0"],\

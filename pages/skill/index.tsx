@@ -9,7 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { Cascader } from "antd";
+import Cascader from "antd/lib/cascader";
 import { options } from "@/components/skill/CascaderOption";
 import SmallTitle from "@/components/layout/SmallTitle";
 import { FieldValues } from "react-hook-form";
