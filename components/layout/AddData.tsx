@@ -28,6 +28,7 @@ function AddData({
           variant="outlined"
           {...register(docName, { required: true })}
           className="w-3/5"
+          autoComplete="off"
         />
         <Button type="submit" variant="contained" className="bg-[#1976d2]">
           확인

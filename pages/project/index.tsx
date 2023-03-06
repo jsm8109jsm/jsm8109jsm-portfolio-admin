@@ -22,7 +22,6 @@ function Project() {
   // const [imageUpload, setImageUpload] = useState<File | null>(null);
   const [imageList, setImageList] = useState<string[]>([]);
   const [projects, setProjects] = useState<Personal_Projects[]>([]);
-  const [modal, setModal] = useRecoilState(modalState);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log(newValue);
@@ -39,6 +38,10 @@ function Project() {
         );
         const response = await getDocs(bucket);
         let newData: Personal_Projects[] = [];
+        if (response.docs.length === 0) {
+          setProjects([]);
+          return;
+        }
 
         response.docs.map((doc) => {
           newData.push({ ...doc.data(), projectId: doc.id });
@@ -68,6 +71,7 @@ function Project() {
     })();
   }, [value, render]);
 
+
   return (
     <>
       <Sidebar />
@@ -79,7 +83,14 @@ function Project() {
         </Tabs>
         <div className="grid grid-cols-3 gap-5">
           {projects.map((item, index) => {
-            return <ProjectItem key={item.id} data={item} index={index} />;
+            return (
+              <ProjectItem
+                key={item.id}
+                data={item}
+                index={index}
+                value={value}
+              />
+            );
           })}
         </div>
       </div>

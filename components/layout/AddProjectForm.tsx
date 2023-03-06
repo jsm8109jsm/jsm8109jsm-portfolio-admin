@@ -97,13 +97,32 @@ function AddProjectForm({ index }: { index: number }) {
       className="flex flex-col gap-5"
     >
       <AddProjectInput register={register} name="name" label="제목" />
-      <AddProjectInput register={register} name="start_month" label="시작한 달" />
-      <AddProjectInput register={register} name="finish_month" label="끝마친 달" />
+      <AddProjectInput
+        register={register}
+        name="start_month"
+        label="시작한 달"
+      />
+      <AddProjectInput
+        register={register}
+        name="finish_month"
+        label="끝마친 달"
+      />
       <AddProjectInput register={register} name="intro" label="한 줄 소개" />
+      {index === 1 && (
+        <AddProjectInput register={register} name="role" label="맡은 역할" />
+      )}
       <AddProjectInput register={register} name="feel" label="느낀 점" />
       <AddProjectInput register={register} name="hard" label="힘들었던 점" />
-      <AddProjectInput register={register} name="github_link" label="깃허브 링크" />
-      <AddProjectInput register={register} name="imageName" label="대표 이미지" />
+      <AddProjectInput
+        register={register}
+        name="github_link"
+        label="깃허브 링크"
+      />
+      <AddProjectInput
+        register={register}
+        name="imageName"
+        label="대표 이미지"
+      />
       <Button variant="contained" component="label" className="w-48">
         대표 이미지 업로드
         <input

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Modal, Skeleton, TextField } from "@mui/material";
+import { Button, Modal, Skeleton, TextField } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { modalState } from "@/store/modal";
 import { deleteObject, ref, uploadBytes } from "firebase/storage";
@@ -14,6 +14,7 @@ import {
   MoodBad,
   Clear,
   Add,
+  PeopleAlt,
 } from "@mui/icons-material";
 import Slider from "react-slick";
 import Image from "next/image";
@@ -44,7 +45,7 @@ function ProjectModal() {
   const imageRef = useRef<HTMLInputElement>(null);
   const [newStack, setNewStack] = useState("");
 
-  const { data, isOpen, value } = modal;
+  const { data, isOpen, index } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
     setImageIndex(newIndex + 1);
   };
@@ -67,7 +68,7 @@ function ProjectModal() {
         setImageList([]);
         const imageListRef = ref(
           storage,
-          `images/${value === 0 ? "personal" : "team"}/projects/${
+          `images/${index === 0 ? "personal" : "team"}/projects/${
             data.imageName
           }`
         );
@@ -88,13 +89,12 @@ function ProjectModal() {
         console.log(error);
       }
     })();
-  }, [data.imageName, value]);
+  }, [data.imageName, index]);
 
   const deleteImage = async (imageName: string) => {
     try {
       const imageRef = ref(storage, imageName);
       const response = await deleteObject(imageRef);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +104,7 @@ function ProjectModal() {
     try {
       const projectRef = doc(
         fireStore,
-        `${value === 0 ? "personal" : "team"}_projects`,
+        `${index === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       const stacks = data.stacks.filter(
@@ -126,7 +126,7 @@ function ProjectModal() {
 
       const imageRef = ref(
         storage,
-        `images/${value === 0 ? "personal" : "team"}/projects/${
+        `images/${index === 0 ? "personal" : "team"}/projects/${
           data.imageName
         }/${imageList.length}.png`
       );
@@ -135,7 +135,7 @@ function ProjectModal() {
           setImageList((prev) => [
             ...prev,
             {
-              name: `images/${value === 0 ? "personal" : "team"}/${
+              name: `images/${index === 0 ? "personal" : "team"}/${
                 imageList.length
               }.png`,
               url: url,
@@ -157,24 +157,28 @@ function ProjectModal() {
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] bg-white p-8 rounded-30 focus-visible:outline-none">
         <div className="relative">
-          <Clear
-            className="absolute top-2 right-2 cursor-pointer"
+          <Button
+            className="absolute top-2 right-2 cursor-pointer bg-[#d32f2f]"
+            variant="contained"
+            color="error"
             onClick={() =>
               setDialog((prev) => ({
                 ...prev,
                 isOpen: true,
-                index: value,
+                index: index,
                 id: data.projectId,
                 imageName: data.imageName,
               }))
             }
-          />
+          >
+            삭제
+          </Button>
           <h1 className="text-5xl text-center m-0 font-black">
-            <ModalItem name="name" index={value} size="large" />
+            <ModalItem name="name" index={index} size="large" />
           </h1>
           <h6 className="text-[#808080] m-0 text-center text-2xl">
-            <ModalItem name="start_month" index={value} size="small" /> ~{" "}
-            <ModalItem name="finish_month" index={value} size="small" />
+            <ModalItem name="start_month" index={index} size="small" /> ~{" "}
+            <ModalItem name="finish_month" index={index} size="small" />
           </h6>
           <div className="flex gap-10 w-full mt-5">
             {imageList.length > 0 ? (
@@ -245,7 +249,7 @@ function ProjectModal() {
             <div className="flex flex-col gap-5 w-[336px]">
               <div className="flex flex-col gap-5 w-full max-h-60 overflow-y-scroll">
                 <h3 className="text-2xl m-0 mb-2.5 text-center font-bold">
-                  <ModalItem name="intro" index={value} size="small" />
+                  <ModalItem name="intro" index={index} size="small" />
                 </h3>
                 <div>
                   <h4 className="item-title">
@@ -289,29 +293,38 @@ function ProjectModal() {
                         <UpdateProjectConfirm
                           name="stacks"
                           newData={newStack}
-                          index={value}
+                          index={index}
                         />
                         <UpdateProjectCancel name="stacks" />
                       </>
                     )}
                   </div>
                 </div>
+                {index === 1 && (
+                  <div>
+                    <h4 className="item-title">
+                      <PeopleAlt />
+                      맡은 역할
+                    </h4>
+                    <ModalItem name="role" index={index} size="small" />
+                  </div>
+                )}
                 <div>
                   <h4 className="item-title">
                     <Mood />
                     느낀 점
                   </h4>
-                  <ModalItem name="feel" index={value} size="small" />
+                  <ModalItem name="feel" index={index} size="small" />
                 </div>
                 <div>
                   <h4 className="item-title">
                     <MoodBad />
                     힘들었던 점
                   </h4>
-                  <ModalItem name="hard" index={value} size="small" />
+                  <ModalItem name="hard" index={index} size="small" />
                 </div>
               </div>
-              <ModalItem name="github_link" index={value} size="small" />
+              <ModalItem name="github_link" index={index} size="small" />
             </div>
           </div>
         </div>

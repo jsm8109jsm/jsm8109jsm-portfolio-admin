@@ -19,6 +19,7 @@ function ModalItem({
     | "start_month"
     | "finish_month"
     | "intro"
+    | "role"
     | "github_link"
     | "imageName"
     | "feel"
@@ -31,7 +32,11 @@ function ModalItem({
   const [newData, setNewData] = useRecoilState(newDataState);
   const { data } = modal;
   return (
-    <div className={`inline-flex ${name === 'github_link' ? 'justify-start' :"justify-center"} gap-2.5 items-center`}>
+    <div
+      className={`inline-flex ${
+        name === "github_link" ? "justify-start" : "justify-center"
+      } gap-2.5 items-center`}
+    >
       {!updatingData[name] ? (
         name !== "github_link" ? (
           <>

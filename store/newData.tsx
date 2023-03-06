@@ -11,6 +11,7 @@ interface NewData {
   imageName: string;
   feel: string;
   hard: string;
+  role?: string;
 }
 
 export const newDataState = atom<NewData>({

@@ -10,6 +10,7 @@ interface UpdatingData {
   stacks: boolean;
   imageName: boolean;
   feel: boolean;
+  role?: boolean;
   hard: boolean;
 }
 

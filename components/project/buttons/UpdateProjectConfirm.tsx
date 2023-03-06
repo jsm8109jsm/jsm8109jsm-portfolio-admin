@@ -14,7 +14,7 @@ function UpdatingProjectConfirm({
   index,
 }: {
   name: string;
-  newData: string;
+  newData?: string;
   index: number;
 }) {
   const [render, setRender] = useRecoilState(renderState);

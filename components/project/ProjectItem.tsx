@@ -8,9 +8,11 @@ import { renderState } from "@/store/render";
 function ProjectItem({
   data,
   index,
+  value,
 }: {
   data: Personal_Projects;
   index: number;
+  value: number;
 }) {
   const [modal, setModal] = useRecoilState(modalState);
 
@@ -33,8 +35,8 @@ function ProjectItem({
           return {
             ...prev,
             isOpen: true,
-            data: data,
-            index: index,
+            data,
+            index: value,
           };
         })
       }
