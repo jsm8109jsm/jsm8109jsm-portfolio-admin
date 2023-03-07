@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import Cascader from "antd/lib/cascader";
-import { options } from "@/components/skill/CascaderOption";
+import { options } from "@/components/skill/SkillCascaderOption";
 import SmallTitle from "@/components/layout/SmallTitle";
 import { FieldValues } from "react-hook-form";
 import AddData from "@/components/layout/AddData";
@@ -55,8 +55,13 @@ function Skill() {
   const addComment = async (data: FieldValues) => {
     try {
       const docRef = doc(fireStore, "skill", field[0]);
-      const newComments = comments;
-      newComments.push(data.comment);
+      let newComments;
+      if (typeof comments !== "undefined") {
+        newComments = comments;
+        newComments.push(data.comment);
+      } else {
+        newComments = [data.comment];
+      }
       console.log(newComments);
       const response = await updateDoc(docRef, { [field[1]]: newComments });
 
@@ -93,7 +98,7 @@ function Skill() {
             onChange={onChange}
           />
         </div>
-        {typeof field === undefined || field.length !== 0 ? (
+        {typeof field === "undefined" || field.length !== 0 ? (
           <>
             <SkillLevel field={field} />
             <AddData title="수식어" addFuc={addComment} docName="comment" />

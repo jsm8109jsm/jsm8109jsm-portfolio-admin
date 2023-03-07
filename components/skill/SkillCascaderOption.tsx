@@ -121,6 +121,10 @@ export const options: Option[] = [
         value: "emotion",
         label: "Emotion.js",
       },
+      {
+        value: "tailwind",
+        label: "tailwindcss",
+      },
     ],
   },
   {
