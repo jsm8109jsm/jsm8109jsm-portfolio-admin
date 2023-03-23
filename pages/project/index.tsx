@@ -24,7 +24,6 @@ function Project() {
   const [projects, setProjects] = useState<Personal_Projects[]>([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    console.log(newValue);
     setValue(newValue);
     setImageList([]);
   };
@@ -70,7 +69,6 @@ function Project() {
       }
     })();
   }, [value, render]);
-
 
   return (
     <>

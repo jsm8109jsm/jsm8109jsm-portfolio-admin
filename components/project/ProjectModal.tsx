@@ -50,8 +50,6 @@ function ProjectModal() {
     setImageIndex(newIndex + 1);
   };
 
-  console.log(modal);
-
   const settings = {
     beforeChange: beforeChange,
     arrows: true,
@@ -90,7 +88,7 @@ function ProjectModal() {
         console.log(error);
       }
     })();
-  }, [data.imageName, index]);
+  }, [data.imageName, value]);
 
   const deleteImage = async (imageName: string) => {
     try {
@@ -105,7 +103,7 @@ function ProjectModal() {
     try {
       const projectRef = doc(
         fireStore,
-        `${modal.value === 0 ? "personal" : "team"}_projects`,
+        `${value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       const stacks = data.stacks.filter(
@@ -166,7 +164,7 @@ function ProjectModal() {
               setDialog((prev) => ({
                 ...prev,
                 isOpen: true,
-                index: index,
+                index: value,
                 id: data.projectId,
                 imageName: data.imageName,
               }))
