@@ -28,7 +28,7 @@ function UpdatingProjectConfirm({
     try {
       const projectRef = doc(
         fireStore,
-        `${index === 0 ? "personal" : "team"}_projects`,
+        `${modal.value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       const response = await updateDoc(projectRef, { [name]: newData });
@@ -53,7 +53,7 @@ function UpdatingProjectConfirm({
     try {
       const projectRef = doc(
         fireStore,
-        `${index === 0 ? "personal" : "team"}_projects`,
+        `${modal.value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       let stacks = data.stacks ?? [];

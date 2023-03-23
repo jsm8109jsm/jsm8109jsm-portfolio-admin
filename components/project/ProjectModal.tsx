@@ -45,10 +45,12 @@ function ProjectModal() {
   const imageRef = useRef<HTMLInputElement>(null);
   const [newStack, setNewStack] = useState("");
 
-  const { data, isOpen, index } = modal;
+  const { data, isOpen, index, value } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
     setImageIndex(newIndex + 1);
   };
+
+  console.log(modal);
 
   const settings = {
     beforeChange: beforeChange,
@@ -67,7 +69,7 @@ function ProjectModal() {
         setImageList([]);
         const imageListRef = ref(
           storage,
-          `images/${index === 0 ? "personal" : "team"}/projects/${
+          `images/${value === 0 ? "personal" : "team"}/projects/${
             data.imageName
           }`
         );
@@ -103,7 +105,7 @@ function ProjectModal() {
     try {
       const projectRef = doc(
         fireStore,
-        `${modal.index === 0 ? "personal" : "team"}_projects`,
+        `${modal.value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       const stacks = data.stacks.filter(

@@ -27,6 +27,8 @@ function ProjectItem({
     }
   }, [data, setModal]);
 
+  // console.log(modal, index);
+
   return (
     <div
       className="rounded-20 p-5 bg-black relative flex flex-col gap-5 cursor-pointer"
@@ -36,7 +38,8 @@ function ProjectItem({
             ...prev,
             isOpen: true,
             data,
-            index: value,
+            index,
+            value,
           };
         })
       }
