@@ -61,7 +61,6 @@ function ProjectModal() {
     prevArrow: <ChevronLeft className="text-black" />,
     nextArrow: <ChevronRight className="text-black" />,
   };
-
   useEffect(() => {
     (async () => {
       try {
@@ -104,7 +103,7 @@ function ProjectModal() {
     try {
       const projectRef = doc(
         fireStore,
-        `${index === 0 ? "personal" : "team"}_projects`,
+        `${modal.index === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
       const stacks = data.stacks.filter(
