@@ -12,6 +12,7 @@ import {
 import BigTitle from "../../components/layout/BigTitle";
 import AddData from "../../components/layout/AddData";
 import DeleteDocsData from "../../components/layout/DeleteDocsData";
+import useRedirect from "@/hooks/useRedirect";
 
 export interface modifier {
   id: string;

@@ -19,10 +19,7 @@ export default function Home() {
   useEffect(() => {
     const _session_key = `firebase:authUser:${process.env.NEXT_PUBLIC_API_KEY}:[DEFAULT]`;
     const { uid } = JSON.parse(sessionStorage.getItem(_session_key) || "{}");
-    if (
-      uid === process.env.NEXT_PUBLIC_FIREBASE_UID ||
-      uid === process.env.NEXT_PUBLIC_FIREBASE_UID2
-    ) {
+    if (uid === process.env.NEXT_PUBLIC_FIREBASE_UID) {
       router.push("/modifier");
     }
   }, []);
@@ -31,10 +28,7 @@ export default function Home() {
       await setPersistence(newAuth, browserSessionPersistence);
       try {
         const response = await signInWithPopup(auth, provider);
-        if (
-          response.user.uid !== process.env.NEXT_PUBLIC_FIREBASE_UID ||
-          response.user.uid !== process.env.NEXT_PUBLIC_FIREBASE_UID2
-        ) {
+        if (response.user.uid !== process.env.NEXT_PUBLIC_FIREBASE_UID) {
           setMent("당신은 정승민이 아니에요!!!!");
           throw new Error("당신은 정승민이 아니에요!");
         } else {
