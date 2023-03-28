@@ -12,6 +12,7 @@ interface UpdatingData {
   feel: boolean;
   role?: boolean;
   hard: boolean;
+  part: boolean;
 }
 
 export const updatingDataState = atom<UpdatingData>({
@@ -26,5 +27,6 @@ export const updatingDataState = atom<UpdatingData>({
     imageName: false,
     feel: false,
     hard: false,
+    part: false,
   },
 });

@@ -56,12 +56,12 @@ function UpdatingProjectConfirm({
         `${modal.value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
-      let stacks = data.stacks ?? [];
+      let stacks = data[name] ?? [];
 
       const response = await updateDoc(projectRef, {
-        stacks: [...stacks, newData],
+        [name]: [...stacks, newData],
       });
-      setUpdatingData((prev) => ({ ...prev, stacks: false }));
+      setUpdatingData((prev) => ({ ...prev, [name]: false }));
       setRender((prev) => !prev);
       setNewData((prev) => ({ ...prev, [name]: "" }));
     } catch (error) {
@@ -70,7 +70,9 @@ function UpdatingProjectConfirm({
   };
 
   const isUpdatingArray = () => {
-    name !== "stacks" ? updateProject() : updateArrayProject();
+    name === "stacks" || name === "part"
+      ? updateArrayProject()
+      : updateProject();
   };
 
   return (

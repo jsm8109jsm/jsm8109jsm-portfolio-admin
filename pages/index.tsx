@@ -32,7 +32,6 @@ export default function Home() {
           setMent("당신은 정승민이 아니에요!!!!");
           throw new Error("당신은 정승민이 아니에요!");
         } else {
-          // localStorage.setItem('token', response.user)
           router.push("/modifier");
         }
       } catch (error) {

@@ -44,6 +44,7 @@ function ProjectModal() {
 
   const imageRef = useRef<HTMLInputElement>(null);
   const [newStack, setNewStack] = useState("");
+  const [newPart, setNewPart] = useState("");
 
   const { data, isOpen, index, value } = modal;
   const beforeChange = (oldIndex: number, newIndex: number) => {
@@ -99,19 +100,19 @@ function ProjectModal() {
     }
   };
 
-  const deleteStacks = async (index: number) => {
+  const deleteStacks = async (name: string, index: number) => {
     try {
       const projectRef = doc(
         fireStore,
         `${value === 0 ? "personal" : "team"}_projects`,
         data.projectId
       );
-      const stacks = data.stacks.filter(
+      const stacks = data[name].filter(
         (stack: string, i: number) => i !== index
       );
 
-      const response = await updateDoc(projectRef, { stacks: stacks });
-      setUpdatingData((prev) => ({ ...prev, stacks: false }));
+      const response = await updateDoc(projectRef, { [name]: stacks });
+      setUpdatingData((prev) => ({ ...prev, [name]: false }));
       setRender((prev) => !prev);
     } catch (error) {
       console.log(error);
@@ -265,7 +266,7 @@ function ProjectModal() {
                           {stack}
                           <Clear
                             className="cursor-pointer"
-                            onClick={() => deleteStacks(index)}
+                            onClick={() => deleteStacks("stacks", index)}
                           />
                         </div>
                       ))}
@@ -299,14 +300,62 @@ function ProjectModal() {
                     )}
                   </div>
                 </div>
-                {index === 1 && (
-                  <div>
-                    <h4 className="item-title">
-                      <PeopleAlt />
-                      맡은 역할
-                    </h4>
-                    <ModalItem name="role" index={index} size="small" />
-                  </div>
+                {value === 1 && (
+                  <>
+                    <div>
+                      <h4 className="item-title">
+                        <PeopleAlt />
+                        맡은 역할
+                      </h4>
+                      <ModalItem name="role" index={index} size="small" />
+                    </div>
+                    <div>
+                      <h4 className="item-title">
+                        <Layers />
+                        내가 개발한 부분
+                      </h4>
+                      <ul className="">
+                        {data.part &&
+                          data.part.map((stack: string, index: number) => (
+                            <li key={index} className="">
+                              {stack}
+                              <Clear
+                                className="cursor-pointer"
+                                onClick={() => deleteStacks("part", index)}
+                              />
+                            </li>
+                          ))}
+                        {!updatingData.part ? (
+                          <>
+                            <Add
+                              className="cursor-pointer"
+                              onClick={() =>
+                                setUpdatingData((prev) => ({
+                                  ...prev,
+                                  part: true,
+                                }))
+                              }
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <TextField
+                              label="part"
+                              value={newPart}
+                              variant="outlined"
+                              onChange={(e) => setNewPart(e.target.value)}
+                            />
+                            <UpdateProjectConfirm
+                              name="part"
+                              newData={newPart}
+                              index={index}
+                            />
+                            <UpdateProjectCancel name="part" />
+                          </>
+                        )}
+                      </ul>
+                    </div>
+                  </>
                 )}
                 <div>
                   <h4 className="item-title">
